@@ -1,0 +1,56 @@
+/* -------------------------------------------------
+    Reset
+   ------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* -------------------------------------------------
+    Layout
+   ------------------------------------------------- */
+body, html {
+  height: 100%;
+  width: 100%; }
+
+#wrapper {
+  position: relative;
+  height: auto;
+  min-height: 100%; }
+
+/* -------------------------------------------------
+    Pie menu ring
+   ------------------------------------------------- */
+.pie-menu--ring {
+  box-sizing: border-box;
+  opacity: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 16px gold solid;
+  position: absolute;
+  -webkit-transform: scale(.7);
+  -moz-transform: scale(.7);
+  -ms-transform: scale(.7);
+  -o-transform: scale(.7);
+  transform: scale(.7);
+  -webkit-transition: top 0s 300ms, left 0s 300ms, opacity 300ms, -webkit-transform 300ms;
+  -moz-transition: top 0s 300ms, left 0s 300ms, opacity 300ms, -moz-transform 300ms;
+  -ms-transition: top 0s 300ms, left 0s 300ms, opacity 300ms, -ms-transform 300ms;
+  -o-transition: top 0s 300ms, left 0s 300ms, opacity 300ms, -o-transform 300ms;
+  transition: top 0s 300ms, left 0s 300ms, opacity 300ms, transform 300ms; }
+  .pie-menu--ring.active {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: top 0s 0s, left 0s 0s, opacity 300ms, -webkit-transform 300ms;
+    -moz-transition: top 0s 0s, left 0s 0s, opacity 300ms, -moz-transform 300ms;
+    -ms-transition: top 0s 0s, left 0s 0s, opacity 300ms, -ms-transform 300ms;
+    -o-transition: top 0s 0s, left 0s 0s, opacity 300ms, -o-transform 300ms;
+    transition: top 0s 0s, left 0s 0s, opacity 300ms, transform 300ms; }
