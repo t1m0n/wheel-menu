@@ -13,7 +13,7 @@ $duration: 300ms;
   width: $radius;
   height: $radius;
   border-radius: 50%;
-  border: 16px gold solid;
+  border: 1px gold solid;
   position: absolute;
 
   @include transform(scale(.7));

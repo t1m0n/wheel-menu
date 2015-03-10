@@ -30,7 +30,7 @@ body, html {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 16px gold solid;
+  border: 1px gold solid;
   position: absolute;
   -webkit-transform: scale(.7);
   -moz-transform: scale(.7);
@@ -54,3 +54,14 @@ body, html {
     -ms-transition: top 0s 0s, left 0s 0s, opacity 300ms, -ms-transform 300ms;
     -o-transition: top 0s 0s, left 0s 0s, opacity 300ms, -o-transform 300ms;
     transition: top 0s 0s, left 0s 0s, opacity 300ms, transform 300ms; }
+
+/* -------------------------------------------------
+    Pie menu item
+   ------------------------------------------------- */
+.pie-menu--item {
+  position: absolute;
+  color: #333;
+  font-family: Tahoma, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  background: goldenrod; }
