@@ -1,6 +1,10 @@
+@import "../bourbon/bourbon";
+
 /* -------------------------------------------------
     Pie menu item
    ------------------------------------------------- */
+
+$duration: 300ms;
 
 .pie-menu--item {
   position: absolute;
@@ -8,6 +12,34 @@
   font-family: Tahoma, sans-serif;
   font-size: 14px;
   text-align: center;
+  opacity: 0;
 
+  width: 20px;
+  height: 20px;
   background: goldenrod;
+
+  @include transform(scale(.7));
+
+  transition: transform $duration, opacity $duration, left 0s $duration, right 0s $duration;
+
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}n) {
+      @include transition-delay(25ms * $i);
+    }
+  }
+
+  .active & {
+    opacity: 1;
+
+    transition: transform $duration, opacity $duration, left 0s 0s, right 0s 0s;
+
+    @include transform(scale(1));
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}n) {
+        @include transition-delay(25ms * $i);
+      }
+    }
+
+  }
 }

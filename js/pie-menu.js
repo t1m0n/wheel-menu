@@ -45,11 +45,11 @@
         },
 
         show: function () {
-            this.setMenuItemsPosition();
-            this.setPiePosition();
-
             $ring.classList.add('active');
             this.$itemsConteiner.classList.add('active');
+
+            this.setMenuItemsPosition();
+            this.setPiePosition();
         },
 
         hide: function () {

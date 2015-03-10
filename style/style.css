@@ -64,4 +64,85 @@ body, html {
   font-family: Tahoma, sans-serif;
   font-size: 14px;
   text-align: center;
-  background: goldenrod; }
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  background: goldenrod;
+  -webkit-transform: scale(.7);
+  -moz-transform: scale(.7);
+  -ms-transform: scale(.7);
+  -o-transform: scale(.7);
+  transform: scale(.7);
+  transition: transform 300ms, opacity 300ms, left 0s 300ms, right 0s 300ms; }
+  .pie-menu--item:nth-child(1n) {
+    -webkit-transition-delay: 25ms;
+    -moz-transition-delay: 25ms;
+    transition-delay: 25ms; }
+  .pie-menu--item:nth-child(2n) {
+    -webkit-transition-delay: 50ms;
+    -moz-transition-delay: 50ms;
+    transition-delay: 50ms; }
+  .pie-menu--item:nth-child(3n) {
+    -webkit-transition-delay: 75ms;
+    -moz-transition-delay: 75ms;
+    transition-delay: 75ms; }
+  .pie-menu--item:nth-child(4n) {
+    -webkit-transition-delay: 100ms;
+    -moz-transition-delay: 100ms;
+    transition-delay: 100ms; }
+  .pie-menu--item:nth-child(5n) {
+    -webkit-transition-delay: 125ms;
+    -moz-transition-delay: 125ms;
+    transition-delay: 125ms; }
+  .pie-menu--item:nth-child(6n) {
+    -webkit-transition-delay: 150ms;
+    -moz-transition-delay: 150ms;
+    transition-delay: 150ms; }
+  .pie-menu--item:nth-child(7n) {
+    -webkit-transition-delay: 175ms;
+    -moz-transition-delay: 175ms;
+    transition-delay: 175ms; }
+  .pie-menu--item:nth-child(8n) {
+    -webkit-transition-delay: 200ms;
+    -moz-transition-delay: 200ms;
+    transition-delay: 200ms; }
+  .active .pie-menu--item {
+    opacity: 1;
+    transition: transform 300ms, opacity 300ms, left 0s 0s, right 0s 0s;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1); }
+    .active .pie-menu--item:nth-child(1n) {
+      -webkit-transition-delay: 25ms;
+      -moz-transition-delay: 25ms;
+      transition-delay: 25ms; }
+    .active .pie-menu--item:nth-child(2n) {
+      -webkit-transition-delay: 50ms;
+      -moz-transition-delay: 50ms;
+      transition-delay: 50ms; }
+    .active .pie-menu--item:nth-child(3n) {
+      -webkit-transition-delay: 75ms;
+      -moz-transition-delay: 75ms;
+      transition-delay: 75ms; }
+    .active .pie-menu--item:nth-child(4n) {
+      -webkit-transition-delay: 100ms;
+      -moz-transition-delay: 100ms;
+      transition-delay: 100ms; }
+    .active .pie-menu--item:nth-child(5n) {
+      -webkit-transition-delay: 125ms;
+      -moz-transition-delay: 125ms;
+      transition-delay: 125ms; }
+    .active .pie-menu--item:nth-child(6n) {
+      -webkit-transition-delay: 150ms;
+      -moz-transition-delay: 150ms;
+      transition-delay: 150ms; }
+    .active .pie-menu--item:nth-child(7n) {
+      -webkit-transition-delay: 175ms;
+      -moz-transition-delay: 175ms;
+      transition-delay: 175ms; }
+    .active .pie-menu--item:nth-child(8n) {
+      -webkit-transition-delay: 200ms;
+      -moz-transition-delay: 200ms;
+      transition-delay: 200ms; }
