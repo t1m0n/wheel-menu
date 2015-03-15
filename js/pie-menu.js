@@ -40,6 +40,7 @@
     PieMenu.prototype = {
         init: function () {
             this.inited = true;
+            this.cache = [];
 
             this.createItemsDOM();
 
@@ -97,8 +98,11 @@
             var step = Math.PI*2 / this.opts.items.length,
                 angle = Math.PI/2,
                 opts = this.opts,
+                range,
                 _this = this,
                 position;
+
+            this.cache = [];
 
             Array.prototype.forEach.call(this.$items, function ($item) {
                 position = _this.getItemPosition($item, angle);
@@ -106,8 +110,21 @@
                 $item.style.left = position.x + 'px';
                 $item.style.top = position.y + 'px';
 
+                _this.cache.push({
+                    item: $item,
+                    range: position.range
+                });
+
                 angle -= step;
             });
+        },
+
+        getX: function (angle) {
+           return Math.cos(angle) * (this.opts.size + this.opts.pointerSize)/2 + this.centerX;
+        },
+
+        getY: function (angle) {
+            return -Math.sin(angle) * (this.opts.size + this.opts.pointerSize)/2 + this.centerY;
         },
 
         /**
@@ -121,11 +138,13 @@
                 height = item.offsetHeight,
                 opts = this.opts,
                 degrees = angle * 180/Math.PI,
+                range = this.getAngleRange(angle),
                 x, y;
 
-            x = Math.cos(angle) * (opts.size + opts.pointerSize)/2 + this.centerX;
-            y = -Math.sin(angle) * (opts.size + opts.pointerSize)/2 + this.centerY;
+            x = this.getX(angle);
+            y = this.getY(angle);
 
+            //TODO сделать для диапозона чисел, а не для конкртеных
             // Correct x position
             switch (true) {
                 case degrees == 90 || degrees == -90:
@@ -155,8 +174,36 @@
 
             return {
                 x: x,
-                y: y
+                y: y,
+                range: range
             }
+        },
+
+        /**
+         * Defines to what angle range item is belong to. Need for activating proper item
+         * @param {Number} angle - Angle in radians to compute range from.
+         * @returns {Array} - Range array [from, to] in degrees. 'from' can be larger then 'to'
+         */
+        getAngleRange: function (angle) {
+            var range = [],
+                opts = this.opts,
+                halfStep = (Math.PI*2 / this.opts.items.length) / 2,
+                from = angle - halfStep,
+                to = angle + halfStep,
+                fromX, fromY,
+                toX, toY;
+
+            fromX = this.getX(from);
+            fromY = this.getY(from);
+
+            toX = this.getX(to);
+            toY = this.getY(to);
+
+            range[0] = -Math.atan2(fromY - this.centerY, fromX - this.centerX) * 180/Math.PI;
+
+            range[1] = -Math.atan2(toY - this.centerY, toX - this.centerX) * 180/Math.PI;
+
+            return range;
         },
 
         /**
@@ -216,24 +263,56 @@
             this.currentY = event.clientY;
         },
 
+        defineVector: function () {
+            var x = this.currentX - this.centerX,
+                y = this.currentY - this.centerY,
+                length = Math.sqrt(x * x + y * y);
+
+            this.vector = {
+                x: x,
+                y: y,
+                length: length
+            };
+        },
+
         setCursorPosition: function () {
-            var vector = {
-                    x: this.currentX - this.centerX,
-                    y: this.currentY - this.centerY
-                },
-                length = Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+            var x = this.vector.x / this.vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerX - 4,
+                y = this.vector.y / this.vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - 4;
 
-            vector.x = vector.x / length * (this.opts.size/2+this.opts.cursorOffset) + this.centerX - 4;
-            vector.y = vector.y / length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - 4;
+            $ringCursor.style.left = x + 'px';
+            $ringCursor.style.top = y + 'px';
+        },
 
-            $ringCursor.style.left = vector.x + 'px';
-            $ringCursor.style.top = vector.y + 'px';
+        intersection: function () {
+            var tan = this.vector.y / this.vector.x,
+                from, to,
+                cursorDegree = -Math.atan2(this.vector.y, this.vector.x) * 180/Math.PI;
+
+            this.cache.forEach(function (item) {
+                from = item.range[0];
+                to = item.range[1];
+
+                // If one of item's sides area is on the edge state. For example
+                // when we have item which 'from' begins from 157 and ends to -157, when all
+                // 'cursorDegree' values are appear hear. To not let this happen, we compare
+                // 'from' and 'to' and reverse comparing operations.
+                if (from > to) {
+                    if (cursorDegree <= from && cursorDegree <= to) {
+                        console.log(item.item.innerHTML);
+                    }
+                } else {
+                    if (cursorDegree >= from && cursorDegree <= to) {
+                        console.log(item.item.innerHTML);
+                    }
+                }
+            })
         },
 
         //  Events
         // -------------------------------------------------
 
         onMouseDown: function (e) {
+            this.defineVector();
             this.defineCoordsCenter(e);
             this.saveCurrentMousePosition(e);
             this.show();
@@ -246,7 +325,9 @@
         onMouseMove: function (e) {
             if (this.visible) {
                 this.saveCurrentMousePosition(e);
+                this.defineVector();
                 this.setCursorPosition();
+                this.intersection();
             }
         }
 
