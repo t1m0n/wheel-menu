@@ -15,6 +15,7 @@
             size: 100,
             cursorOffset: 10,
             pointerSize: 50,
+            cursorFixed: true,
             items: [
                 'Hello',
                 'Need to go Need to go',
@@ -40,7 +41,9 @@
     PieMenu.prototype = {
         init: function () {
             this.inited = true;
+
             this.cache = [];
+            this.currentActive = '';
 
             this.createItemsDOM();
 
@@ -74,10 +77,36 @@
             $ring.classList.remove('active');
             $ringCursor.classList.remove('active');
             this.$itemsConteiner.classList.remove('active');
-            $html.classList.remove('-pie-menu-visible-');
+            $html.classList.remove('-pie-menu-visible-','-pie-menu-moving-');
 
             $ring.style.top = 0 + 'px';
             $ring.style.left = 0 + 'px';
+        },
+
+        /**
+         * Activates received item.
+         * @param {Object} item - Cached menu item from this.cache
+         */
+        activate: function (item) {
+            if (this.currentActive) {
+                this.disable(this.currentActive);
+            }
+
+            item.item.classList.add('active');
+
+            this.currentActive = item;
+        },
+
+        /**
+         * Disables received item.
+         *  @param {Object} item - Cached menu item from this.cache
+         */
+        disable: function (item) {
+            item = item ? item : this.currentActive;
+
+            if (!item) return;
+
+            item.item.classList.remove('active');
         },
 
         /**
@@ -275,16 +304,28 @@
             };
         },
 
+        /**
+         * Calculates angle between mouse cursor position and circle center in degress.
+         * Begins from 0 to 360
+         * @returns {number} - Current angle
+         */
+        getMouseCursorAngle: function () {
+            return -Math.atan2(-this.vector.y, -this.vector.x) * 180/Math.PI + 180;
+        },
+
         setCursorPosition: function () {
             var x = this.vector.x / this.vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerX - 4,
-                y = this.vector.y / this.vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - 4;
+                y = this.vector.y / this.vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - 4,
+                angle = this.getMouseCursorAngle();
 
             $ringCursor.style.left = x + 'px';
             $ringCursor.style.top = y + 'px';
+            $ringCursor.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
         },
 
         intersection: function () {
             var tan = this.vector.y / this.vector.x,
+                _this = this,
                 from, to,
                 cursorDegree = -Math.atan2(this.vector.y, this.vector.x) * 180/Math.PI;
 
@@ -298,11 +339,11 @@
                 // 'from' and 'to' and reverse comparing operations.
                 if (from > to) {
                     if (cursorDegree <= from && cursorDegree <= to) {
-                        console.log(item.item.innerHTML);
+                        _this.activate(item);
                     }
                 } else {
                     if (cursorDegree >= from && cursorDegree <= to) {
-                        console.log(item.item.innerHTML);
+                        _this.activate(item);
                     }
                 }
             })
@@ -324,6 +365,8 @@
 
         onMouseMove: function (e) {
             if (this.visible) {
+                $html.classList.add('-pie-menu-moving-');
+
                 this.saveCurrentMousePosition(e);
                 this.defineVector();
                 this.setCursorPosition();

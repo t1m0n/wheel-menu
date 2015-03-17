@@ -73,7 +73,7 @@ body, html {
   background: #f4777f;
   border-radius: 50%;
   width: 8px;
-  height: 8px;
+  height: 2px;
   position: absolute;
   left: -1000px;
   top: -1000px;
@@ -83,6 +83,11 @@ body, html {
   transition: opacity 0.3s, transform 0.3s; }
   .pie-menu--cursor.active {
     opacity: 1; }
+
+.-pie-menu-moving- .pie-menu--cursor {
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none; }
 
 /* -------------------------------------------------
     Pie menu item
@@ -176,3 +181,5 @@ body, html {
       -webkit-transition-delay: 200ms;
       -moz-transition-delay: 200ms;
       transition-delay: 200ms; }
+  .pie-menu--item.active {
+    background: #ff9ca6; }

@@ -43,4 +43,11 @@ $duration: 300ms;
     }
 
   }
+
+  //  Active state
+  // -------------------------------------------------
+
+  &.active {
+    background: #ff9ca6;
+  }
 }
