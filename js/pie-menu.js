@@ -64,7 +64,11 @@
             $html.classList.add('-pie-menu-visible-');
 
             this.setMenuItemsPosition();
-            this.setCursorPosition();
+
+            var firstItem = this.cache[0],
+                firstItemVector = this.getVector(firstItem.x, firstItem.y);
+
+            this.setCursorPosition(firstItemVector);
             this.setPiePosition();
         },
 
@@ -81,6 +85,8 @@
 
             $ring.style.top = 0 + 'px';
             $ring.style.left = 0 + 'px';
+
+            this.disable();
         },
 
         /**
@@ -92,6 +98,9 @@
                 this.disable(this.currentActive);
             }
 
+            var vector = this.getVector(item.x, item.y);
+
+            this.setCursorPosition(vector);
             item.item.classList.add('active');
 
             this.currentActive = item;
@@ -141,6 +150,8 @@
 
                 _this.cache.push({
                     item: $item,
+                    x: position.originalX,
+                    y: position.originalY,
                     range: position.range
                 });
 
@@ -168,10 +179,11 @@
                 opts = this.opts,
                 degrees = angle * 180/Math.PI,
                 range = this.getAngleRange(angle),
-                x, y;
-
-            x = this.getX(angle);
-            y = this.getY(angle);
+                x, y,
+                originalX, originalY;
+            
+            x = originalX = this.getX(angle);
+            y = originalY = this.getY(angle);
 
             //TODO сделать для диапозона чисел, а не для конкртеных
             // Correct x position
@@ -204,6 +216,8 @@
             return {
                 x: x,
                 y: y,
+                originalX: originalX,
+                originalY: originalY,
                 range: range
             }
         },
@@ -293,30 +307,39 @@
         },
 
         defineVector: function () {
-            var x = this.currentX - this.centerX,
-                y = this.currentY - this.centerY,
-                length = Math.sqrt(x * x + y * y);
+            this.vector = this.getVector(this.currentX, this.currentY);
+        },
 
-            this.vector = {
-                x: x,
-                y: y,
+        getVector: function (x, y) {
+            var _x = x - this.centerX,
+                _y = y - this.centerY,
+                length = Math.sqrt(_x * _x + _y * _y);
+
+            return {
+                x: _x,
+                y: _y,
                 length: length
             };
         },
 
         /**
-         * Calculates angle between mouse cursor position and circle center in degress.
+         * Calculates angle between vector point and circle center in degrees
          * Begins from 0 to 360
-         * @returns {number} - Current angle
+         * @param {Object} [vector] - Vector to calculate from. 'this.vector' by default.
+         * @returns {number} - Angle in degrees
          */
-        getMouseCursorAngle: function () {
-            return -Math.atan2(-this.vector.y, -this.vector.x) * 180/Math.PI + 180;
+        getCursorAngle: function (vector) {
+            vector = vector ? vector : this.vector;
+
+            return -Math.atan2(-vector.y, -vector.x) * 180/Math.PI + 180;
         },
 
-        setCursorPosition: function () {
-            var x = this.vector.x / this.vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerX - 4,
-                y = this.vector.y / this.vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - 4,
-                angle = this.getMouseCursorAngle();
+        setCursorPosition: function (vector) {
+            vector = vector ? vector : this.vector;
+
+            var x = vector.x / vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerX - 4,
+                y = vector.y / vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - 4,
+                angle = this.getCursorAngle(vector);
 
             $ringCursor.style.left = x + 'px';
             $ringCursor.style.top = y + 'px';
@@ -360,7 +383,7 @@
         },
 
         onMouseUp: function (e) {
-            this.hide()
+            this.hide();
         },
 
         onMouseMove: function (e) {
@@ -369,7 +392,9 @@
 
                 this.saveCurrentMousePosition(e);
                 this.defineVector();
-                this.setCursorPosition();
+                if (!this.opts.cursorFixed) {
+                    this.setCursorPosition();
+                }
                 this.intersection();
             }
         }
