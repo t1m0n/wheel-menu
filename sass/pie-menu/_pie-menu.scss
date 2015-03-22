@@ -1,3 +1,5 @@
+@import "imports";
+
 /* -------------------------------------------------
     Pie menu general
    ------------------------------------------------- */
@@ -9,4 +11,17 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.pie-menu-container {
+    left: -9999px;
+    position: absolute;
+
+    @include transition(left 0s $duration);
+
+    &.active {
+      left: 0;
+
+      @include transition-delay(0s)
+    }
 }

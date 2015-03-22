@@ -12,7 +12,17 @@
         <script type="text/javascript">
             window.onload = function () {
                 new PieMenu('html', {
-                    items: ['1','2','3','4','5','6','7','8']
+                    items: [
+                        '1',
+                        '2',
+                        {
+                            content: 'I\'m an object',
+                            value: 'three'
+                        },
+                        '4','5','6','7','8'],
+                    onChange: function (item) {
+                        console.log(item);
+                    }
                 });
             }
         </script>

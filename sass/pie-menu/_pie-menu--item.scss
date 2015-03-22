@@ -1,4 +1,4 @@
-@import "../bourbon/bourbon";
+@import "imports";
 
 /* -------------------------------------------------
     Pie menu item
@@ -14,10 +14,10 @@ $duration: 300ms;
   text-align: center;
   opacity: 0;
 
-  width: 20px;
-  height: 20px;
   border-radius: 2px;
+  padding: 4px 8px;
   background: rgba(0, 0, 0, 0.10);
+  white-space: nowrap;
 
   @include transform(scale(.7));
 

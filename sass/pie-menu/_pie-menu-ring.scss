@@ -1,11 +1,10 @@
-@import "../bourbon/bourbon";
+@import "imports";
 
 /* -------------------------------------------------
     Pie menu ring
    ------------------------------------------------- */
 
 $radius: 100px;
-$duration: 300ms;
 
 .pie-menu--ring {
   box-sizing: border-box;

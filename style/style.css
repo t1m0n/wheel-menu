@@ -32,6 +32,18 @@ body, html {
   -ms-user-select: none;
   user-select: none; }
 
+.pie-menu-container {
+  left: -9999px;
+  position: absolute;
+  -webkit-transition: left 0s 300ms;
+  -moz-transition: left 0s 300ms;
+  transition: left 0s 300ms; }
+  .pie-menu-container.active {
+    left: 0;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    transition-delay: 0s; }
+
 /* -------------------------------------------------
     Pie menu ring
    ------------------------------------------------- */
@@ -99,10 +111,10 @@ body, html {
   font-size: 14px;
   text-align: center;
   opacity: 0;
-  width: 20px;
-  height: 20px;
   border-radius: 2px;
+  padding: 4px 8px;
   background: rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
   -webkit-transform: scale(.7);
   -moz-transform: scale(.7);
   -ms-transform: scale(.7);
