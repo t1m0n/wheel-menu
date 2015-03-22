@@ -10,12 +10,20 @@
         $ring,
         $ringCursor,
 
-        // Default params
+    // Default params
         defaults = {
             size: 100,
+            inActiveRadius: 20,
             cursorOffset: 10,
             pointerSize: 50,
             cursorFixed: true,
+
+            // On change callback. Called when mouseup event is triggered,
+            // and if active item exists. It receives item array element as parameter.
+            onChange: '',
+
+            // Item element can be either string or object.
+            // Object must contain 'content' field, it will be used as item's html.
             items: [
                 'Hello',
                 'Need to go Need to go',
@@ -48,8 +56,8 @@
             this.createItemsDOM();
 
             this.el.addEventListener('mousedown', this.onMouseDown.bind(this));
-            this.el.addEventListener('mouseup', this.onMouseUp.bind(this));
-            this.el.addEventListener('mousemove', this.onMouseMove.bind(this));
+            $html.addEventListener('mouseup', this.onMouseUp.bind(this));
+            $html.addEventListener('mousemove', this.onMouseMove.bind(this));
         },
 
         /**
@@ -58,17 +66,13 @@
         show: function () {
             this.visible = true;
 
+            $el.classList.add('active');
             $ring.classList.add('active');
-            $ringCursor.classList.add('active');
             this.$itemsConteiner.classList.add('active');
             $html.classList.add('-pie-menu-visible-');
 
             this.setMenuItemsPosition();
 
-            var firstItem = this.cache[0],
-                firstItemVector = this.getVector(firstItem.x, firstItem.y);
-
-            this.setCursorPosition(firstItemVector);
             this.setPiePosition();
         },
 
@@ -78,6 +82,7 @@
         hide: function () {
             this.visible = false;
 
+            $el.classList.remove('active');
             $ring.classList.remove('active');
             $ringCursor.classList.remove('active');
             this.$itemsConteiner.classList.remove('active');
@@ -103,19 +108,26 @@
             this.setCursorPosition(vector);
             item.item.classList.add('active');
 
+            $ringCursor.classList.add('active');
+            this.setCursorPosition(vector);
+
             this.currentActive = item;
         },
 
+
         /**
          * Disables received item.
-         *  @param {Object} item - Cached menu item from this.cache
+         *  @param {Object} [item] - Cached menu item from this.cache
          */
         disable: function (item) {
             item = item ? item : this.currentActive;
 
             if (!item) return;
 
+            $ringCursor.classList.remove('active');
+
             item.item.classList.remove('active');
+            this.currentActive = ''
         },
 
         /**
@@ -130,7 +142,8 @@
         },
 
         /**
-         * Loops through each menu item and sets its position
+         * Loops through each menu item and sets its position.
+         * Refreshes items cache array.
          */
         setMenuItemsPosition: function () {
             var step = Math.PI*2 / this.opts.items.length,
@@ -160,7 +173,7 @@
         },
 
         getX: function (angle) {
-           return Math.cos(angle) * (this.opts.size + this.opts.pointerSize)/2 + this.centerX;
+            return Math.cos(angle) * (this.opts.size + this.opts.pointerSize)/2 + this.centerX;
         },
 
         getY: function (angle) {
@@ -181,7 +194,7 @@
                 range = this.getAngleRange(angle),
                 x, y,
                 originalX, originalY;
-            
+
             x = originalX = this.getX(angle);
             y = originalY = this.getY(angle);
 
@@ -284,13 +297,19 @@
          */
         createItemsDOM: function () {
             var $itemsContainer = doc.createElement('div'),
+                itemHtml,
                 items = '';
 
             $itemsContainer.classList.add('pie-menu--items');
             $itemsContainer.setAttribute('id', idPrefix + idCounter++);
 
             this.opts.items.forEach(function (item) {
-                items += '<span class="pie-menu--item">' + item + '</span>';
+                if (typeof item == 'string') {
+                    itemHtml = item;
+                } else {
+                    itemHtml = item.content ? item.content : 'undefined'
+                }
+                items += '<span class="pie-menu--item">' + itemHtml + '</span>';
             });
 
             $itemsContainer.innerHTML = items;
@@ -346,6 +365,10 @@
             $ringCursor.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
         },
 
+        /**
+         * Detects intersection between mouse cursor (vector from center to mouse position)
+         * and menu item. If detects, activates this item.
+         */
         intersection: function () {
             var tan = this.vector.y / this.vector.x,
                 _this = this,
@@ -372,17 +395,31 @@
             })
         },
 
+        /**
+         * Defines if mouse cursor is in inActive radius
+         * @returns {boolean} - True if so
+         * @private
+         */
+        _isInactive: function () {
+            return this.vector.length < this.opts.inActiveRadius
+        },
+
         //  Events
         // -------------------------------------------------
 
         onMouseDown: function (e) {
-            this.defineVector();
             this.defineCoordsCenter(e);
             this.saveCurrentMousePosition(e);
+            this.defineVector();
             this.show();
         },
 
         onMouseUp: function (e) {
+            if (this.currentActive && this.opts.onChange) {
+                var index = this.cache.indexOf(this.currentActive);
+                this.opts.onChange(this.opts.items[index]);
+            }
+
             this.hide();
         },
 
@@ -395,7 +432,11 @@
                 if (!this.opts.cursorFixed) {
                     this.setCursorPosition();
                 }
-                this.intersection();
+                if (this._isInactive()) {
+                    this.disable();
+                } else {
+                    this.intersection();
+                }
             }
         }
 
