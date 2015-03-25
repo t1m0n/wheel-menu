@@ -6,12 +6,17 @@
         <link rel="stylesheet" href="style/style.css"/>
     </head>
     <body>
+        <div class="container">
+            <img src="img/dota-bg.jpg" alt=""/>
+        </div>
 
         <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="js/pie-menu.js"></script>
         <script type="text/javascript">
             window.onload = function () {
                 new PieMenu('html', {
+                    size: 170,
+                    cursorOffset: 8,
                     items: [
                         '1',
                         '2',

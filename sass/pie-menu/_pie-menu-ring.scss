@@ -34,3 +34,9 @@ $radius: 100px;
     transition: top 0s 0s, left 0s 0s,opacity $duration,  transform $duration;
   }
 }
+
+.-pie-menu-moving- {
+  .pie-menu--ring  {
+    @include transition(none);
+  }
+}

@@ -16,10 +16,19 @@ body, html {
   height: 100%;
   width: 100%; }
 
-#wrapper {
-  position: relative;
-  height: auto;
-  min-height: 100%; }
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 850px;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+  .container img {
+    max-width: 100%;
+    -webkit-filter: blur(2px); }
 
 /* -------------------------------------------------
     Pie menu general
@@ -78,12 +87,16 @@ body, html {
     -o-transition: top 0s 0s, left 0s 0s, opacity 300ms, -o-transform 300ms;
     transition: top 0s 0s, left 0s 0s, opacity 300ms, transform 300ms; }
 
+.-pie-menu-moving- .pie-menu--ring {
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none; }
+
 /* -------------------------------------------------
     Pie menu cursor
    ------------------------------------------------- */
 .pie-menu--cursor {
   background: #f4777f;
-  border-radius: 50%;
   width: 8px;
   height: 2px;
   position: absolute;
@@ -195,3 +208,33 @@ body, html {
       transition-delay: 200ms; }
   .pie-menu--item.active {
     background: #ff9ca6; }
+
+/* -------------------------------------------------
+    Dota styles
+   ------------------------------------------------- */
+.pie-menu--ring {
+  border: none; }
+  .pie-menu--ring:after {
+    content: '';
+    background: url(../img/wheel.png) left top no-repeat;
+    width: 208px;
+    height: 208px;
+    position: absolute;
+    left: -33px;
+    top: -18px; }
+
+.pie-menu--cursor {
+  background: url(../img/cursor.png) left top no-repeat;
+  width: 33px;
+  height: 66px;
+  position: absolute; }
+
+.pie-menu--item {
+  background: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 2px #000; }
+  .pie-menu--item.active {
+    background: none;
+    color: #fc6861; }

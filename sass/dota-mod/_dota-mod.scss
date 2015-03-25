@@ -1,0 +1,48 @@
+
+/* -------------------------------------------------
+    Dota styles
+   ------------------------------------------------- */
+
+//  Ring
+// -------------------------------------------------
+
+.pie-menu--ring {
+  border: none;
+
+  &:after {
+    content: '';
+    background: url(../img/wheel.png) left top no-repeat;
+    width: 208px;
+    height: 208px;
+    position: absolute;
+    left: -33px;
+    top: -18px;
+  }
+}
+
+//  Cursor
+// -------------------------------------------------
+
+.pie-menu--cursor {
+    background: url(../img/cursor.png) left top no-repeat;
+    width: 33px;
+    height: 66px;
+    position: absolute;
+}
+
+
+//  Item
+// -------------------------------------------------
+
+.pie-menu--item {
+  background: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+
+  &.active {
+    background: none;
+    color: #fc6861;
+  }
+}

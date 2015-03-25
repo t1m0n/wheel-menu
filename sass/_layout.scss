@@ -1,3 +1,4 @@
+@import "bourbon/bourbon";
 
 /* -------------------------------------------------
     Layout
@@ -5,13 +6,22 @@
 
 body,
 html { height: 100%; width: 100%; }
-html {}
+html {
+}
 
-//  Wrapper
-//  ------------------------------------------------
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 850px;
 
-#wrapper {
-  position: relative;
-  height: auto;
-  min-height: 100%;
+
+  @include transform(translate(-50%, -50%));
+
+  img {
+    max-width: 100%;
+
+    -webkit-filter: blur(2px);
+
+  }
 }

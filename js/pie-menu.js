@@ -17,6 +17,7 @@
             cursorOffset: 10,
             pointerSize: 50,
             cursorFixed: true,
+            rotateRing: true, // If ring must be rotated according to active item or not
 
             // On change callback. Called when mouseup event is triggered,
             // and if active item exists. It receives item array element as parameter.
@@ -110,6 +111,7 @@
 
             $ringCursor.classList.add('active');
             this.setCursorPosition(vector);
+            this.setRingRotation(vector);
 
             this.currentActive = item;
         },
@@ -289,6 +291,9 @@
             $ring = $el.querySelector('.pie-menu--ring');
             $ringCursor = $el.querySelector('.pie-menu--cursor');
 
+            $ring.style.width = this.opts.size + 'px';
+            $ring.style.height = this.opts.size + 'px';
+
             $body.appendChild($el);
         },
 
@@ -356,13 +361,26 @@
         setCursorPosition: function (vector) {
             vector = vector ? vector : this.vector;
 
-            var x = vector.x / vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerX - 4,
-                y = vector.y / vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - 4,
+            var width = $ringCursor.offsetWidth,
+                height = $ringCursor.offsetHeight;
+
+            var x = vector.x / vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerX - width/2,
+                y = vector.y / vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - height/2,
                 angle = this.getCursorAngle(vector);
 
             $ringCursor.style.left = x + 'px';
             $ringCursor.style.top = y + 'px';
             $ringCursor.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
+        },
+
+        setRingRotation: function (vector) {
+            var active = this.currentActive,
+                angle;
+
+            vector = vector || this.getVector(active.x, active.y);
+            angle = this.getCursorAngle(vector);
+
+            $ring.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
         },
 
         /**
