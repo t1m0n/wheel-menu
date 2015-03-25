@@ -1,0 +1,33 @@
+@import "../bourbon/bourbon";
+
+/* -------------------------------------------------
+    Pie menu cursor
+   ------------------------------------------------- */
+
+$duration: .3s;
+
+.pie-menu--pointer{
+  background: #f4777f;
+  width: 8px;
+  height: 2px;
+  position: absolute;
+  left: -1000px;
+  top: -1000px;
+  
+  opacity: 0;
+  
+  @include transition(opacity $duration, transform $duration);
+  @include transform(scale(.5));
+
+  &.active {
+    opacity: 1;
+    @include transform(scale(1));
+
+  }
+}
+
+.-pie-menu-moving- {
+  .pie-menu--pointer {
+    @include transition(none);
+  }
+}

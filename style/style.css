@@ -105,14 +105,51 @@ body, html {
   opacity: 0;
   -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
   -moz-transition: opacity 0.3s, -moz-transform 0.3s;
-  transition: opacity 0.3s, transform 0.3s; }
+  transition: opacity 0.3s, transform 0.3s;
+  -webkit-transform: scale(.5);
+  -moz-transform: scale(.5);
+  -ms-transform: scale(.5);
+  -o-transform: scale(.5);
+  transform: scale(.5); }
   .pie-menu--pointer.active {
-    opacity: 1; }
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1); }
 
 .-pie-menu-moving- .pie-menu--pointer {
   -webkit-transition: none;
   -moz-transition: none;
   transition: none; }
+
+/* -------------------------------------------------
+    Menu cursor
+   ------------------------------------------------- */
+.pie-menu--cursor {
+  border: 1px solid #ff9ca6;
+  border-radius: 50%;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  opacity: 0;
+  -webkit-transform: scale(.4);
+  -moz-transform: scale(.4);
+  -ms-transform: scale(.4);
+  -o-transform: scale(.4);
+  transform: scale(.4);
+  -webkit-transition: -webkit-transform 300ms, opacity 300ms;
+  -moz-transition: -moz-transform 300ms, opacity 300ms;
+  transition: transform 300ms, opacity 300ms; }
+  .pie-menu--cursor.active {
+    opacity: .8;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1); }
 
 /* -------------------------------------------------
     Pie menu item
@@ -224,10 +261,17 @@ body, html {
     top: -18px; }
 
 .pie-menu--pointer {
+  border: none;
   background: url(../img/pointer.png) left top no-repeat;
   width: 33px;
   height: 66px;
   position: absolute; }
+
+.pie-menu--cursor {
+  border: none;
+  background: url(../img/cursor.png) left top no-repeat;
+  width: 60px;
+  height: 63px; }
 
 .pie-menu--item {
   background: none;

@@ -20,14 +20,25 @@
   }
 }
 
-//  Cursor
+//  Pointer
 // -------------------------------------------------
 
 .pie-menu--pointer {
-    background: url(../img/pointer.png) left top no-repeat;
-    width: 33px;
-    height: 66px;
-    position: absolute;
+  border: none;
+  background: url(../img/pointer.png) left top no-repeat;
+  width: 33px;
+  height: 66px;
+  position: absolute;
+}
+
+//  Cursor
+// -------------------------------------------------
+   
+.pie-menu--cursor {
+  border: none;
+  background: url(../img/cursor.png) left top no-repeat;
+  width: 60px;
+  height: 63px;
 }
 
 

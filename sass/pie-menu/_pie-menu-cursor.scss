@@ -1,31 +1,23 @@
-@import "../bourbon/bourbon";
+@import "imports";
 
 /* -------------------------------------------------
-    Pie menu cursor
+    Menu cursor
    ------------------------------------------------- */
 
-$duration: .3s;
-
-.pie-menu--pointer{
-  background: #f4777f;
-  width: 8px;
-  height: 2px;
+.pie-menu--cursor {
+  border: 1px solid #ff9ca6;
+  border-radius: 50%;
   position: absolute;
-  left: -1000px;
-  top: -1000px;
-  
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+
   opacity: 0;
-  
-  @include transition(opacity $duration, transform $duration);
+  @include transform(scale(.4));
+  @include transition(transform $duration, opacity $duration);
 
   &.active {
-    opacity: 1;
-
-  }
-}
-
-.-pie-menu-moving- {
-  .pie-menu--pointer {
-    @include transition(none);
+    opacity: .8;
+    @include transform(scale(1));
   }
 }

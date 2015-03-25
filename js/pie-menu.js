@@ -8,11 +8,13 @@
         idPrefix = 'pie-chat-',
         $el,
         $ring,
+        $cursor,
         $pointer,
 
     // Default params
         defaults = {
             size: 100,
+            borderWidth: 20, // Need for correct cursor positioning inside the ring
             inActiveRadius: 20,
             pointerOffset: 10,
             pointerFixed: true,
@@ -55,6 +57,7 @@
             this.currentActive = '';
 
             this.createItemsDOM();
+            this._saveCursorDimensions();
 
             this.el.addEventListener('mousedown', this.onMouseDown.bind(this));
             $html.addEventListener('mouseup', this.onMouseUp.bind(this));
@@ -69,10 +72,13 @@
 
             $el.classList.add('active');
             $ring.classList.add('active');
+            $cursor.classList.add('active');
             this.$itemsConteiner.classList.add('active');
             $html.classList.add('-pie-menu-visible-');
 
             this.setMenuItemsPosition();
+            this.setCursorPosition();
+            this.setRingRotation(this.getVector(this.cache[0].x, this.cache[0].y))
 
             this.setPiePosition();
         },
@@ -85,9 +91,12 @@
 
             $el.classList.remove('active');
             $ring.classList.remove('active');
+            $cursor.classList.remove('active');
             $pointer.classList.remove('active');
             this.$itemsConteiner.classList.remove('active');
             $html.classList.remove('-pie-menu-visible-','-pie-menu-moving-');
+
+            $ring.style.transform = '';
 
             $ring.style.top = 0 + 'px';
             $ring.style.left = 0 + 'px';
@@ -281,7 +290,8 @@
 
             var html = '' +
                 '<div class="pie-menu--ring"></div>' +
-                '<div class="pie-menu--pointer"></div>';
+                '<div class="pie-menu--pointer"></div>' +
+                '<div class="pie-menu--cursor"></div>';
 
             $el = doc.createElement('div');
             $el.classList.add('pie-menu-container');
@@ -290,6 +300,7 @@
 
             $ring = $el.querySelector('.pie-menu--ring');
             $pointer = $el.querySelector('.pie-menu--pointer');
+            $cursor = $el.querySelector('.pie-menu--cursor');
 
             $ring.style.width = this.opts.size + 'px';
             $ring.style.height = this.opts.size + 'px';
@@ -373,6 +384,24 @@
             $pointer.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
         },
 
+        setCursorPosition: function () {
+            var x = this.currentX - this.cursorDims.width/2,
+                y = this.currentY - this.cursorDims.height/ 2,
+                dims = this.cursorDims,
+                vector = this.vector;
+
+            if (this.vector.length > this.opts.size/2 - this.opts.borderWidth - dims.width/2) {
+                x = vector.x / vector.length * (this.opts.size/2 - this.opts.borderWidth - dims.width/2) + this.centerX - dims.width/2;
+                y = vector.y / vector.length * (this.opts.size/2 - this.opts.borderWidth - dims.height/2) + this.centerY - dims.height/2;
+            }
+
+            this.cursorDims.x = x;
+            this.cursorDims.y = y;
+
+            $cursor.style.left = x + 'px';
+            $cursor.style.top = y + 'px';
+        },
+
         setRingRotation: function (vector) {
             var active = this.currentActive,
                 angle;
@@ -380,7 +409,8 @@
             vector = vector || this.getVector(active.x, active.y);
             angle = this.getCursorAngle(vector);
 
-            $ring.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
+            $ring.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)';
+            $ring.style.transformOrigin = 'center center';
         },
 
         /**
@@ -422,6 +452,13 @@
             return this.vector.length < this.opts.inActiveRadius
         },
 
+        _saveCursorDimensions: function () {
+            this.cursorDims = {
+                width: $cursor.offsetWidth,
+                height: $cursor.offsetHeight
+            }
+        },
+
         //  Events
         // -------------------------------------------------
 
@@ -447,6 +484,8 @@
 
                 this.saveCurrentMousePosition(e);
                 this.defineVector();
+                this.setCursorPosition();
+
                 if (!this.opts.pointerFixed) {
                     this.setPointerPosition();
                 }
