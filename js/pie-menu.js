@@ -8,15 +8,15 @@
         idPrefix = 'pie-chat-',
         $el,
         $ring,
-        $ringCursor,
+        $pointer,
 
     // Default params
         defaults = {
             size: 100,
             inActiveRadius: 20,
-            cursorOffset: 10,
+            pointerOffset: 10,
+            pointerFixed: true,
             pointerSize: 50,
-            cursorFixed: true,
             rotateRing: true, // If ring must be rotated according to active item or not
 
             // On change callback. Called when mouseup event is triggered,
@@ -85,7 +85,7 @@
 
             $el.classList.remove('active');
             $ring.classList.remove('active');
-            $ringCursor.classList.remove('active');
+            $pointer.classList.remove('active');
             this.$itemsConteiner.classList.remove('active');
             $html.classList.remove('-pie-menu-visible-','-pie-menu-moving-');
 
@@ -106,11 +106,11 @@
 
             var vector = this.getVector(item.x, item.y);
 
-            this.setCursorPosition(vector);
+            this.setPointerPosition(vector);
             item.item.classList.add('active');
 
-            $ringCursor.classList.add('active');
-            this.setCursorPosition(vector);
+            $pointer.classList.add('active');
+            this.setPointerPosition(vector);
             this.setRingRotation(vector);
 
             this.currentActive = item;
@@ -126,7 +126,7 @@
 
             if (!item) return;
 
-            $ringCursor.classList.remove('active');
+            $pointer.classList.remove('active');
 
             item.item.classList.remove('active');
             this.currentActive = ''
@@ -281,7 +281,7 @@
 
             var html = '' +
                 '<div class="pie-menu--ring"></div>' +
-                '<div class="pie-menu--cursor"></div>';
+                '<div class="pie-menu--pointer"></div>';
 
             $el = doc.createElement('div');
             $el.classList.add('pie-menu-container');
@@ -289,7 +289,7 @@
             $el.innerHTML = html;
 
             $ring = $el.querySelector('.pie-menu--ring');
-            $ringCursor = $el.querySelector('.pie-menu--cursor');
+            $pointer = $el.querySelector('.pie-menu--pointer');
 
             $ring.style.width = this.opts.size + 'px';
             $ring.style.height = this.opts.size + 'px';
@@ -358,19 +358,19 @@
             return -Math.atan2(-vector.y, -vector.x) * 180/Math.PI + 180;
         },
 
-        setCursorPosition: function (vector) {
+        setPointerPosition: function (vector) {
             vector = vector ? vector : this.vector;
 
-            var width = $ringCursor.offsetWidth,
-                height = $ringCursor.offsetHeight;
+            var width = $pointer.offsetWidth,
+                height = $pointer.offsetHeight;
 
-            var x = vector.x / vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerX - width/2,
-                y = vector.y / vector.length * (this.opts.size/2+this.opts.cursorOffset) + this.centerY - height/2,
+            var x = vector.x / vector.length * (this.opts.size/2+this.opts.pointerOffset) + this.centerX - width/2,
+                y = vector.y / vector.length * (this.opts.size/2+this.opts.pointerOffset) + this.centerY - height/2,
                 angle = this.getCursorAngle(vector);
 
-            $ringCursor.style.left = x + 'px';
-            $ringCursor.style.top = y + 'px';
-            $ringCursor.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
+            $pointer.style.left = x + 'px';
+            $pointer.style.top = y + 'px';
+            $pointer.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
         },
 
         setRingRotation: function (vector) {
@@ -447,8 +447,8 @@
 
                 this.saveCurrentMousePosition(e);
                 this.defineVector();
-                if (!this.opts.cursorFixed) {
-                    this.setCursorPosition();
+                if (!this.opts.pointerFixed) {
+                    this.setPointerPosition();
                 }
                 if (this._isInactive()) {
                     this.disable();

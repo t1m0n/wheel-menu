@@ -34,8 +34,8 @@ body, html {
     Pie menu general
    ------------------------------------------------- */
 .-pie-menu-visible- {
-  cursor: default;
-  -webkit-cursor: default;
+  cursor: none;
+  -webkit-cursor: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -95,7 +95,7 @@ body, html {
 /* -------------------------------------------------
     Pie menu cursor
    ------------------------------------------------- */
-.pie-menu--cursor {
+.pie-menu--pointer {
   background: #f4777f;
   width: 8px;
   height: 2px;
@@ -106,10 +106,10 @@ body, html {
   -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
   -moz-transition: opacity 0.3s, -moz-transform 0.3s;
   transition: opacity 0.3s, transform 0.3s; }
-  .pie-menu--cursor.active {
+  .pie-menu--pointer.active {
     opacity: 1; }
 
-.-pie-menu-moving- .pie-menu--cursor {
+.-pie-menu-moving- .pie-menu--pointer {
   -webkit-transition: none;
   -moz-transition: none;
   transition: none; }
@@ -223,8 +223,8 @@ body, html {
     left: -33px;
     top: -18px; }
 
-.pie-menu--cursor {
-  background: url(../img/cursor.png) left top no-repeat;
+.pie-menu--pointer {
+  background: url(../img/pointer.png) left top no-repeat;
   width: 33px;
   height: 66px;
   position: absolute; }

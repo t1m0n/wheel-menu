@@ -6,7 +6,7 @@
 
 $duration: .3s;
 
-.pie-menu--cursor {
+.pie-menu--pointer{
   background: #f4777f;
   width: 8px;
   height: 2px;
@@ -25,7 +25,7 @@ $duration: .3s;
 }
 
 .-pie-menu-moving- {
-  .pie-menu--cursor {
+  .pie-menu--pointer {
     @include transition(none);
   }
 }
