@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:600);
 /* -------------------------------------------------
     Reset
    ------------------------------------------------- */
@@ -142,8 +143,9 @@ body, html {
     -ms-transform: scale(1);
     -o-transform: scale(1);
     transform: scale(1); }
-  .-item-activated- .pie-menu--cursor {
-    opacity: 1; }
+
+.active.-item-activated- .pie-menu--cursor {
+  opacity: 1; }
 
 /* -------------------------------------------------
     Pie menu item
@@ -198,7 +200,7 @@ body, html {
     -moz-transition-delay: 200ms;
     transition-delay: 200ms; }
   .active .pie-menu--item {
-    opacity: 1;
+    opacity: .7;
     transition: transform 300ms, opacity 300ms, left 0s 0s, right 0s 0s;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -273,10 +275,16 @@ body, html {
 
 .pie-menu--item {
   background: none;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 24px;
-  font-weight: bold;
   color: #fff;
-  text-shadow: 0 1px 2px #000; }
+  text-shadow: 0 1px 4px #000; }
   .pie-menu--item.active {
     background: none;
-    font-size: 62px; }
+    font-size: 36px; }
+
+.-pie-menu-moving- .pie-menu--item.active {
+  opacity: 1;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none; }

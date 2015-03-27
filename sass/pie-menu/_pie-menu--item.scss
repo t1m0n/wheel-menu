@@ -30,7 +30,7 @@ $duration: 300ms;
   }
 
   .active & {
-    opacity: 1;
+    opacity: .7;
 
     transition: transform $duration, opacity $duration, left 0s 0s, right 0s 0s;
 
@@ -44,6 +44,7 @@ $duration: 300ms;
 
     .-pie-menu-moving- & {
       @include transition-delay(0s);
+
     }
   }
 

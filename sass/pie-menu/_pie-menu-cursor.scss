@@ -20,8 +20,8 @@
     opacity: .6;
     @include transform(scale(1));
   }
+}
 
-  .-item-activated- & {
-    opacity: 1;
-  }
+.active.-item-activated- .pie-menu--cursor {
+  opacity: 1;
 }

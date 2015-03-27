@@ -1,7 +1,9 @@
-
 /* -------------------------------------------------
     Dota styles
    ------------------------------------------------- */
+
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:600);
+$duration: 300ms;
 
 //  Ring
 // -------------------------------------------------
@@ -47,13 +49,25 @@
 
 .pie-menu--item {
   background: none;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 24px;
-  font-weight: bold;
   color: #fff;
-  text-shadow: 0 1px 2px #000;
+  text-shadow: 0 1px 4px #000;
 
   &.active {
     background: none;
-    font-size: 62px;
+    font-size: 36px;
+  }
+
+
+}
+
+.-pie-menu-moving- {
+  .pie-menu--item {
+    &.active {
+      opacity: 1;
+
+      @include transition(none);
+    }
   }
 }
