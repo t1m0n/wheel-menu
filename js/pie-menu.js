@@ -54,6 +54,7 @@
             this.inited = true;
 
             this.cache = [];
+            this.cacheInited = false;
             this.currentActive = '';
 
             this.createItemsDOM();
@@ -70,6 +71,8 @@
         show: function () {
             this.visible = true;
 
+            this.disable(); // Disable previous active item if exist
+
             $el.classList.add('active');
             $ring.classList.add('active');
             $cursor.classList.add('active');
@@ -78,7 +81,7 @@
 
             this.setMenuItemsPosition();
             this.setCursorPosition();
-            this.setRingRotation(this.getVector(this.cache[0].x, this.cache[0].y))
+            this.setRingRotation(this.getVector(this.cache[0].x, this.cache[0].y));
 
             this.setPiePosition();
         },
@@ -101,7 +104,9 @@
             $ring.style.top = 0 + 'px';
             $ring.style.left = 0 + 'px';
 
-            this.disable();
+            // Reset item cache
+            this.cache = [];
+            this.cacheInited = false;
         },
 
         /**
@@ -109,6 +114,8 @@
          * @param {Object} item - Cached menu item from this.cache
          */
         activate: function (item) {
+            if (this.currentActive && this.currentActive == item) return;
+
             if (this.currentActive) {
                 this.disable(this.currentActive);
             }
@@ -119,10 +126,13 @@
             item.item.classList.add('active');
 
             $pointer.classList.add('active');
+            $el.classList.add('-item-activated-');
             this.setPointerPosition(vector);
             this.setRingRotation(vector);
-
             this.currentActive = item;
+
+            // Refresh items position, because of style changes may happen
+            this.setMenuItemsPosition();
         },
 
 
@@ -138,6 +148,8 @@
             $pointer.classList.remove('active');
 
             item.item.classList.remove('active');
+            $el.classList.remove('-item-activated-');
+            this.setMenuItemsPosition();
             this.currentActive = ''
         },
 
@@ -164,23 +176,26 @@
                 _this = this,
                 position;
 
-            this.cache = [];
 
-            Array.prototype.forEach.call(this.$items, function ($item) {
+            Array.prototype.forEach.call(this.$items, function ($item, i) {
                 position = _this.getItemPosition($item, angle);
 
                 $item.style.left = position.x + 'px';
                 $item.style.top = position.y + 'px';
 
-                _this.cache.push({
-                    item: $item,
-                    x: position.originalX,
-                    y: position.originalY,
-                    range: position.range
-                });
+                if (!_this.cacheInited) {
+                    _this.cache.push({
+                        item: $item,
+                        x: position.originalX,
+                        y: position.originalY,
+                        range: position.range
+                    });
+                }
 
                 angle -= step;
             });
+
+            this.cacheInited = true;
         },
 
         getX: function (angle) {
@@ -463,6 +478,8 @@
         // -------------------------------------------------
 
         onMouseDown: function (e) {
+            e.preventDefault();
+
             this.defineCoordsCenter(e);
             this.saveCurrentMousePosition(e);
             this.defineVector();
@@ -480,6 +497,7 @@
 
         onMouseMove: function (e) {
             if (this.visible) {
+                e.preventDefault();
                 $html.classList.add('-pie-menu-moving-');
 
                 this.saveCurrentMousePosition(e);

@@ -42,6 +42,9 @@ $duration: 300ms;
       }
     }
 
+    .-pie-menu-moving- & {
+      @include transition-delay(0s);
+    }
   }
 
   //  Active state
@@ -51,3 +54,4 @@ $duration: 300ms;
     background: #ff9ca6;
   }
 }
+

@@ -24,7 +24,7 @@ $radius: 100px;
   transition: top 0s $duration, left 0s $duration, opacity $duration, transform $duration;
 
   &.active {
-    opacity: 1;
+    opacity: .6;
     @include transform(scale(1));
 
     -webkit-transition: top 0s 0s, left 0s 0s, opacity $duration, -webkit-transform $duration;
@@ -32,11 +32,17 @@ $radius: 100px;
     -ms-transition: top 0s 0s, left 0s 0s, opacity $duration, -ms-transform $duration;
     -o-transition: top 0s 0s, left 0s 0s, opacity $duration, -o-transform $duration;
     transition: top 0s 0s, left 0s 0s,opacity $duration,  transform $duration;
+
+    .-item-activated- & {
+      opacity: 1;
+
+    }
   }
 }
 
 .-pie-menu-moving- {
   .pie-menu--ring  {
-    @include transition(none);
+    @include transition(opacity .3s);
+
   }
 }

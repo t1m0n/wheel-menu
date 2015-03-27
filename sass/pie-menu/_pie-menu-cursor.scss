@@ -17,7 +17,11 @@
   @include transition(transform $duration, opacity $duration);
 
   &.active {
-    opacity: .8;
+    opacity: .6;
     @include transform(scale(1));
+  }
+
+  .-item-activated- & {
+    opacity: 1;
   }
 }
