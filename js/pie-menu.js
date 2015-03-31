@@ -80,7 +80,7 @@
             this.$itemsConteiner.classList.add('active');
             $html.classList.add('-pie-menu-visible-');
 
-            this.setMenuItemsPosition()
+            this.setMenuItemsPosition();
 
 
             this.setCursorPosition();
@@ -108,9 +108,6 @@
 
             $ring.style.top = 0 + 'px';
             $ring.style.left = 0 + 'px';
-
-
-
 
             // Reset item cache
             this.cache = [];
@@ -249,14 +246,13 @@
             fromX = this.getX(angle, this.opts.size / 4);
             fromY = this.getY(angle, this.opts.size / 4);
 
-            //TODO сделать для диапозона чисел, а не для конкртеных
             // Correct x position
             switch (true) {
                 case degrees == 90 || degrees == -90:
                     x = x - width/2;
                     fromX = fromX - width /2;
                     break;
-                case  degrees == -225 || degrees == -180 || degrees == -135:
+                case  degrees <= -90 && degrees >= -270:
                     x = x - width;
                     fromX = fromX - width;
                     break;
@@ -268,17 +264,17 @@
             switch (true) {
                 case degrees == 90:
                     y = y - height;
-                    fromY = fromY - height
+                    fromY = fromY - height;
                     break;
-                case degrees == 45 || degrees == -225:
-                    y = y - height/2;
-                    fromY = fromY - height/2
+                case degrees == -90:
                     break;
                 case degrees == 0 || degrees == -180:
                     y = y - height/2;
-                    fromY = fromY - height/2
+                    fromY = fromY - height/2;
                     break;
                 default:
+                    y = y - height/2;
+                    fromY = fromY - height/2;
                     break;
             }
 
@@ -313,9 +309,9 @@
             toX = this.getX(to);
             toY = this.getY(to);
 
-            range[0] = -Math.atan2(fromY - this.centerY, fromX - this.centerX) * 180/Math.PI;
+            range[0] = -Math.atan2(-(fromY - this.centerY), -(fromX - this.centerX)) * 180/Math.PI + 180;
 
-            range[1] = -Math.atan2(toY - this.centerY, toX - this.centerX) * 180/Math.PI;
+            range[1] = -Math.atan2(-(toY - this.centerY), -(toX - this.centerX)) * 180/Math.PI + 180;
 
             return range;
         },
@@ -468,9 +464,12 @@
             var tan = this.vector.y / this.vector.x,
                 _this = this,
                 from, to,
-                cursorDegree = -Math.atan2(this.vector.y, this.vector.x) * 180/Math.PI;
+                cursorDegree = -Math.atan2(-this.vector.y, -this.vector.x) * 180/Math.PI + 180;
 
-            this.cache.forEach(function (item) {
+
+            for (var i= 0, max = this.cache.length; i < max; i++) {
+                var item = _this.cache[i];
+
                 from = item.range[0];
                 to = item.range[1];
 
@@ -479,7 +478,7 @@
                 // 'cursorDegree' values are appear hear. To not let this happen, we compare
                 // 'from' and 'to' and reverse comparing operations.
                 if (from > to) {
-                    if (cursorDegree <= from && cursorDegree <= to) {
+                    if (cursorDegree <= from && cursorDegree <= to || cursorDegree >= from && cursorDegree >= to) {
                         _this.activate(item);
                     }
                 } else {
@@ -487,6 +486,9 @@
                         _this.activate(item);
                     }
                 }
+            }
+            this.cache.forEach(function (item) {
+
             })
         },
 
