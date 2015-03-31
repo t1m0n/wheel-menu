@@ -20,6 +20,7 @@
             pointerFixed: true,
             pointerSize: 50,
             rotateRing: true, // If ring must be rotated according to active item or not
+            transitionDuration: 300,
 
             // On change callback. Called when mouseup event is triggered,
             // and if active item exists. It receives item array element as parameter.
@@ -79,7 +80,9 @@
             this.$itemsConteiner.classList.add('active');
             $html.classList.add('-pie-menu-visible-');
 
-            this.setMenuItemsPosition();
+            this.setMenuItemsPosition()
+
+
             this.setCursorPosition();
             this.setRingRotation(this.getVector(this.cache[0].x, this.cache[0].y));
 
@@ -92,6 +95,8 @@
         hide: function () {
             this.visible = false;
 
+            this._setSequencedItemPosition();
+
             $el.classList.remove('active');
             $ring.classList.remove('active');
             $cursor.classList.remove('active');
@@ -103,6 +108,9 @@
 
             $ring.style.top = 0 + 'px';
             $ring.style.left = 0 + 'px';
+
+
+
 
             // Reset item cache
             this.cache = [];
@@ -188,6 +196,8 @@
                         item: $item,
                         x: position.originalX,
                         y: position.originalY,
+                        fromX: position.fromX,
+                        fromY: position.fromY,
                         range: position.range
                     });
                 }
@@ -198,12 +208,24 @@
             this.cacheInited = true;
         },
 
-        getX: function (angle) {
-            return Math.cos(angle) * (this.opts.size + this.opts.pointerSize)/2 + this.centerX;
+        /**
+         * Sets items position in certain sequence. If direction is true,
+         * when sets items position from circle center to its edges and vice versa.
+         * @param {Boolean} [direction] - If true (show) sets smaller values first.
+         * @private
+         */
+        _setSequencedItemPosition: function (direction) {
+            if (direction) {
+
+            }
         },
 
-        getY: function (angle) {
-            return -Math.sin(angle) * (this.opts.size + this.opts.pointerSize)/2 + this.centerY;
+        getX: function (angle, size) {
+            return Math.cos(angle) * (size || this.opts.size + this.opts.pointerSize)/2 + this.centerX;
+        },
+
+        getY: function (angle, size) {
+            return -Math.sin(angle) * (size || this.opts.size + this.opts.pointerSize)/2 + this.centerY;
         },
 
         /**
@@ -219,19 +241,24 @@
                 degrees = angle * 180/Math.PI,
                 range = this.getAngleRange(angle),
                 x, y,
+                fromX, fromY,
                 originalX, originalY;
 
             x = originalX = this.getX(angle);
             y = originalY = this.getY(angle);
+            fromX = this.getX(angle, this.opts.size / 4);
+            fromY = this.getY(angle, this.opts.size / 4);
 
             //TODO сделать для диапозона чисел, а не для конкртеных
             // Correct x position
             switch (true) {
                 case degrees == 90 || degrees == -90:
                     x = x - width/2;
+                    fromX = fromX - width /2;
                     break;
                 case  degrees == -225 || degrees == -180 || degrees == -135:
                     x = x - width;
+                    fromX = fromX - width;
                     break;
                 default:
                     break;
@@ -241,12 +268,15 @@
             switch (true) {
                 case degrees == 90:
                     y = y - height;
+                    fromY = fromY - height
                     break;
                 case degrees == 45 || degrees == -225:
-                    y = y - height;
+                    y = y - height/2;
+                    fromY = fromY - height/2
                     break;
                 case degrees == 0 || degrees == -180:
                     y = y - height/2;
+                    fromY = fromY - height/2
                     break;
                 default:
                     break;
@@ -257,6 +287,8 @@
                 y: y,
                 originalX: originalX,
                 originalY: originalY,
+                fromX: fromX,
+                fromY: fromY,
                 range: range
             }
         },

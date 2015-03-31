@@ -161,44 +161,44 @@ body, html {
   padding: 4px 8px;
   background: rgba(0, 0, 0, 0.1);
   white-space: nowrap;
-  -webkit-transform: scale(.7);
-  -moz-transform: scale(.7);
-  -ms-transform: scale(.7);
-  -o-transform: scale(.7);
-  transform: scale(.7);
+  -webkit-transform: scale(.6);
+  -moz-transform: scale(.6);
+  -ms-transform: scale(.6);
+  -o-transform: scale(.6);
+  transform: scale(.6);
   transition: transform 300ms, opacity 300ms, left 0s 300ms, right 0s 300ms; }
   .pie-menu--item:nth-child(1n) {
-    -webkit-transition-delay: 25ms;
-    -moz-transition-delay: 25ms;
-    transition-delay: 25ms; }
+    -webkit-transition-delay: 20ms;
+    -moz-transition-delay: 20ms;
+    transition-delay: 20ms; }
   .pie-menu--item:nth-child(2n) {
-    -webkit-transition-delay: 50ms;
-    -moz-transition-delay: 50ms;
-    transition-delay: 50ms; }
+    -webkit-transition-delay: 40ms;
+    -moz-transition-delay: 40ms;
+    transition-delay: 40ms; }
   .pie-menu--item:nth-child(3n) {
-    -webkit-transition-delay: 75ms;
-    -moz-transition-delay: 75ms;
-    transition-delay: 75ms; }
+    -webkit-transition-delay: 60ms;
+    -moz-transition-delay: 60ms;
+    transition-delay: 60ms; }
   .pie-menu--item:nth-child(4n) {
+    -webkit-transition-delay: 80ms;
+    -moz-transition-delay: 80ms;
+    transition-delay: 80ms; }
+  .pie-menu--item:nth-child(5n) {
     -webkit-transition-delay: 100ms;
     -moz-transition-delay: 100ms;
     transition-delay: 100ms; }
-  .pie-menu--item:nth-child(5n) {
-    -webkit-transition-delay: 125ms;
-    -moz-transition-delay: 125ms;
-    transition-delay: 125ms; }
   .pie-menu--item:nth-child(6n) {
-    -webkit-transition-delay: 150ms;
-    -moz-transition-delay: 150ms;
-    transition-delay: 150ms; }
+    -webkit-transition-delay: 120ms;
+    -moz-transition-delay: 120ms;
+    transition-delay: 120ms; }
   .pie-menu--item:nth-child(7n) {
-    -webkit-transition-delay: 175ms;
-    -moz-transition-delay: 175ms;
-    transition-delay: 175ms; }
+    -webkit-transition-delay: 140ms;
+    -moz-transition-delay: 140ms;
+    transition-delay: 140ms; }
   .pie-menu--item:nth-child(8n) {
-    -webkit-transition-delay: 200ms;
-    -moz-transition-delay: 200ms;
-    transition-delay: 200ms; }
+    -webkit-transition-delay: 160ms;
+    -moz-transition-delay: 160ms;
+    transition-delay: 160ms; }
   .active .pie-menu--item {
     opacity: .7;
     transition: transform 300ms, opacity 300ms, left 0s 0s, right 0s 0s;
@@ -208,43 +208,46 @@ body, html {
     -o-transform: scale(1);
     transform: scale(1); }
     .active .pie-menu--item:nth-child(1n) {
-      -webkit-transition-delay: 25ms;
-      -moz-transition-delay: 25ms;
-      transition-delay: 25ms; }
+      -webkit-transition-delay: 20ms;
+      -moz-transition-delay: 20ms;
+      transition-delay: 20ms; }
     .active .pie-menu--item:nth-child(2n) {
-      -webkit-transition-delay: 50ms;
-      -moz-transition-delay: 50ms;
-      transition-delay: 50ms; }
+      -webkit-transition-delay: 40ms;
+      -moz-transition-delay: 40ms;
+      transition-delay: 40ms; }
     .active .pie-menu--item:nth-child(3n) {
-      -webkit-transition-delay: 75ms;
-      -moz-transition-delay: 75ms;
-      transition-delay: 75ms; }
+      -webkit-transition-delay: 60ms;
+      -moz-transition-delay: 60ms;
+      transition-delay: 60ms; }
     .active .pie-menu--item:nth-child(4n) {
+      -webkit-transition-delay: 80ms;
+      -moz-transition-delay: 80ms;
+      transition-delay: 80ms; }
+    .active .pie-menu--item:nth-child(5n) {
       -webkit-transition-delay: 100ms;
       -moz-transition-delay: 100ms;
       transition-delay: 100ms; }
-    .active .pie-menu--item:nth-child(5n) {
-      -webkit-transition-delay: 125ms;
-      -moz-transition-delay: 125ms;
-      transition-delay: 125ms; }
     .active .pie-menu--item:nth-child(6n) {
-      -webkit-transition-delay: 150ms;
-      -moz-transition-delay: 150ms;
-      transition-delay: 150ms; }
+      -webkit-transition-delay: 120ms;
+      -moz-transition-delay: 120ms;
+      transition-delay: 120ms; }
     .active .pie-menu--item:nth-child(7n) {
-      -webkit-transition-delay: 175ms;
-      -moz-transition-delay: 175ms;
-      transition-delay: 175ms; }
+      -webkit-transition-delay: 140ms;
+      -moz-transition-delay: 140ms;
+      transition-delay: 140ms; }
     .active .pie-menu--item:nth-child(8n) {
-      -webkit-transition-delay: 200ms;
-      -moz-transition-delay: 200ms;
-      transition-delay: 200ms; }
+      -webkit-transition-delay: 160ms;
+      -moz-transition-delay: 160ms;
+      transition-delay: 160ms; }
     .-pie-menu-moving- .active .pie-menu--item {
       -webkit-transition-delay: 0s;
       -moz-transition-delay: 0s;
       transition-delay: 0s; }
   .pie-menu--item.active {
     background: #ff9ca6; }
+
+.-items-animation- .pie-menu--item {
+  transition: all .3s; }
 
 /* -------------------------------------------------
     Dota styles

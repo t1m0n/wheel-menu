@@ -4,8 +4,6 @@
     Pie menu item
    ------------------------------------------------- */
 
-$duration: 300ms;
-
 .pie-menu--item {
   position: absolute;
   color: #333;
@@ -19,13 +17,13 @@ $duration: 300ms;
   background: rgba(0, 0, 0, 0.10);
   white-space: nowrap;
 
-  @include transform(scale(.7));
+  @include transform(scale(.6));
 
   transition: transform $duration, opacity $duration, left 0s $duration, right 0s $duration;
 
   @for $i from 1 through 8 {
     &:nth-child(#{$i}n) {
-      @include transition-delay(25ms * $i);
+      @include transition-delay(20ms * $i);
     }
   }
 
@@ -38,7 +36,7 @@ $duration: 300ms;
 
     @for $i from 1 through 8 {
       &:nth-child(#{$i}n) {
-        @include transition-delay(25ms * $i);
+        @include transition-delay(20ms * $i);
       }
     }
 
@@ -53,6 +51,12 @@ $duration: 300ms;
 
   &.active {
     background: #ff9ca6;
+  }
+}
+
+.-items-animation- {
+  .pie-menu--item {
+    transition: all .3s;
   }
 }
 
