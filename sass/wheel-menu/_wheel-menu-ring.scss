@@ -6,7 +6,7 @@
 
 $radius: 100px;
 
-.pie-menu--ring {
+.wheel-menu--ring {
   box-sizing: border-box;
   opacity: 0;
   width: $radius;
@@ -40,8 +40,8 @@ $radius: 100px;
   }
 }
 
-.-pie-menu-moving- {
-  .pie-menu--ring  {
+.-wheel-menu-moving- {
+  .wheel-menu--ring  {
     @include transition(opacity .3s);
 
   }

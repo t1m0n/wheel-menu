@@ -6,7 +6,7 @@
 
 $duration: .3s;
 
-.pie-menu--pointer{
+.wheel-menu--pointer{
   background: #f4777f;
   width: 8px;
   height: 2px;
@@ -20,15 +20,11 @@ $duration: .3s;
 
   &.active {
     opacity: 1;
-
-    .-item-activated- & {
-
-    }
   }
 }
 
-.-pie-menu-moving- {
-  .pie-menu--pointer {
+.-wheel-menu-moving- {
+  .wheel-menu--pointer {
     @include transition(opacity $duration);
   }
 }

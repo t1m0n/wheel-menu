@@ -4,7 +4,7 @@
     Pie menu item
    ------------------------------------------------- */
 
-.pie-menu--items {
+.wheel-menu--items {
   position: absolute;
 
   @include transform(scale(.3));
@@ -16,14 +16,13 @@
   }
 }
 
-.pie-menu--item {
+.wheel-menu--item {
   position: absolute;
   color: #333;
   font-family: Tahoma, sans-serif;
   font-size: 14px;
   text-align: center;
   opacity: 0;
-
   border-radius: 2px;
   padding: 4px 8px;
   background: rgba(0, 0, 0, 0.10);
@@ -46,7 +45,7 @@
       }
     }
 
-    .-pie-menu-moving- & {
+    .-wheel-menu-moving- & {
       @include transition-delay(0s);
 
     }
@@ -57,12 +56,6 @@
 
   &.active {
     background: #ff9ca6;
-  }
-}
-
-.-items-animation- {
-  .pie-menu--item {
-    transition: all .3s;
   }
 }
 

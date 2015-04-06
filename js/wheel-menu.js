@@ -5,7 +5,7 @@
         inited = false,
         DOMGenerated = false,
         idCounter = 1,
-        idPrefix = 'pie-chat-',
+        idPrefix = 'wheel-menu-',
         $el,
         $ring,
         $cursor,
@@ -20,7 +20,6 @@
             pointerFixed: true,
             pointerSize: 50,
             rotateRing: true, // If ring must be rotated according to active item or not
-            transitionDuration: 300,
 
             // On change callback. Called when mouseup event is triggered,
             // and if active item exists. It receives item array element as parameter.
@@ -30,14 +29,14 @@
             // Object must contain 'content' field, it will be used as item's html.
             items: [
                 'Hello',
-                'Need to go Need to go',
-                'Event log Event log',
-                'Get back Get backGet back Get back'
+                'Set your',
+                'Menu items',
+                'Here'
             ]
         };
 
 
-    window.PieMenu = function (el, params) {
+    window.WheelMenu = function (el, params) {
         this.inited = false;
         this.el = doc.querySelector(el);
 
@@ -50,7 +49,7 @@
         this.init();
     };
 
-    PieMenu.prototype = {
+    WheelMenu.prototype = {
         init: function () {
             this.inited = true;
 
@@ -82,7 +81,7 @@
             $ring.classList.add('active');
             $cursor.classList.add('active');
             this.$itemsConteiner.classList.add('active');
-            $html.classList.add('-pie-menu-visible-');
+            $html.classList.add('-wheel-menu-visible-');
 
 
             this.setCursorPosition();
@@ -102,7 +101,7 @@
             $cursor.classList.remove('active');
             $pointer.classList.remove('active');
             this.$itemsConteiner.classList.remove('active');
-            $html.classList.remove('-pie-menu-visible-','-pie-menu-moving-');
+            $html.classList.remove('-wheel-menu-visible-','-wheel-menu-moving-');
 
             $ring.style.transform = '';
 
@@ -410,18 +409,18 @@ console.log(y);
             DOMGenerated = true;
 
             var html = '' +
-                '<div class="pie-menu--ring"></div>' +
-                '<div class="pie-menu--pointer"></div>' +
-                '<div class="pie-menu--cursor"></div>';
+                '<div class="wheel-menu--ring"></div>' +
+                '<div class="wheel-menu--pointer"></div>' +
+                '<div class="wheel-menu--cursor"></div>';
 
             $el = doc.createElement('div');
-            $el.classList.add('pie-menu-container');
+            $el.classList.add('wheel-menu-container');
 
             $el.innerHTML = html;
 
-            $ring = $el.querySelector('.pie-menu--ring');
-            $pointer = $el.querySelector('.pie-menu--pointer');
-            $cursor = $el.querySelector('.pie-menu--cursor');
+            $ring = $el.querySelector('.wheel-menu--ring');
+            $pointer = $el.querySelector('.wheel-menu--pointer');
+            $cursor = $el.querySelector('.wheel-menu--cursor');
 
             $ring.style.width = this.opts.size + 'px';
             $ring.style.height = this.opts.size + 'px';
@@ -437,7 +436,7 @@ console.log(y);
                 itemHtml,
                 items = '';
 
-            $itemsContainer.classList.add('pie-menu--items');
+            $itemsContainer.classList.add('wheel-menu--items');
             $itemsContainer.setAttribute('id', idPrefix + idCounter++);
             $itemsContainer.style.width = this.opts.size + 'px';
             $itemsContainer.style.height = this.opts.size + 'px';
@@ -448,7 +447,7 @@ console.log(y);
                 } else {
                     itemHtml = item.content ? item.content : 'undefined'
                 }
-                items += '<span class="pie-menu--item">' + itemHtml + '</span>';
+                items += '<span class="wheel-menu--item">' + itemHtml + '</span>';
             });
 
             $itemsContainer.innerHTML = items;
@@ -456,7 +455,7 @@ console.log(y);
             $el.appendChild($itemsContainer);
 
             this.$itemsConteiner = $itemsContainer;
-            this.$items = $itemsContainer.querySelectorAll('.pie-menu--item');
+            this.$items = $itemsContainer.querySelectorAll('.wheel-menu--item');
         },
 
         saveCurrentMousePosition: function (event) {
@@ -621,7 +620,7 @@ console.log(y);
         onMouseMove: function (e) {
             if (this.visible) {
                 e.preventDefault();
-                $html.classList.add('-pie-menu-moving-');
+                $html.classList.add('-wheel-menu-moving-');
 
                 this.saveCurrentMousePosition(e);
                 this.defineVector();

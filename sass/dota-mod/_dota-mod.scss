@@ -7,7 +7,7 @@ $duration: 300ms;
 //  Ring
 // -------------------------------------------------
 
-.pie-menu--ring {
+.wheel-menu--ring {
   border: none;
 
   &:after {
@@ -24,7 +24,7 @@ $duration: 300ms;
 //  Pointer
 // -------------------------------------------------
 
-.pie-menu--pointer {
+.wheel-menu--pointer {
   border: none;
   background: url(../img/pointer.png) left top no-repeat;
   width: 33px;
@@ -35,7 +35,7 @@ $duration: 300ms;
 //  Cursor
 // -------------------------------------------------
    
-.pie-menu--cursor {
+.wheel-menu--cursor {
   border: none;
   background: url(../img/cursor.png) left top no-repeat;
   width: 60px;
@@ -46,7 +46,7 @@ $duration: 300ms;
 //  Item
 // -------------------------------------------------
 
-.pie-menu--item {
+.wheel-menu--item {
   background: none;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 24px;
@@ -63,8 +63,8 @@ $duration: 300ms;
 
 }
 
-.-pie-menu-moving- {
-  .pie-menu--item {
+.-wheel-menu-moving- {
+  .wheel-menu--item {
     &.active {
       opacity: 1;
 

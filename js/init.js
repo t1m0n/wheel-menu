@@ -1,7 +1,7 @@
 window.onload = function () {
     chat.init();
 
-    new PieMenu('html', {
+    new WheelMenu('html', {
         size: 170,
         pointerOffset: 8,
         borderWidth: 11,
@@ -20,4 +20,4 @@ window.onload = function () {
             chat.write('Tusk', value)
         }
     });
-}
+};

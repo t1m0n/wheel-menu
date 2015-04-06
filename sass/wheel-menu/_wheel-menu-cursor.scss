@@ -4,7 +4,7 @@
     Menu cursor
    ------------------------------------------------- */
 
-.pie-menu--cursor {
+.wheel-menu--cursor {
   border: 1px solid #ff9ca6;
   border-radius: 50%;
   position: absolute;
@@ -23,7 +23,7 @@
   }
 }
 
-.active.-item-activated- .pie-menu--cursor {
+.active.-item-activated- .wheel-menu--cursor {
   opacity: 1;
   @include transition(transform $duration 0s, opacity $duration 0s);
 }
