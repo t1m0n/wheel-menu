@@ -15,23 +15,23 @@ $radius: 100px;
   border: 1px gold solid;
   position: absolute;
 
-  @include transform(scale(.7));
+  @include transform(scale(.1));
 
-  -webkit-transition: top 0s $duration, left 0s $duration, opacity $duration, -webkit-transform $duration;
-  -moz-transition: top 0s $duration, left 0s $duration, opacity $duration, -moz-transform $duration;
-  -ms-transition: top 0s $duration, left 0s $duration, opacity $duration, -ms-transform $duration;
-  -o-transition: top 0s $duration, left 0s $duration, opacity $duration, -o-transform $duration;
-  transition: top 0s $duration, left 0s $duration, opacity $duration, transform $duration;
+  -webkit-transition: top 0s $duration, left 0s $duration, opacity $duration .1s, -webkit-transform $duration .1s;
+  -moz-transition: top 0s $duration, left 0s $duration, opacity $duration .1s, -moz-transform $duration .1s;
+  -ms-transition: top 0s $duration, left 0s $duration, opacity $duration .1s, -ms-transform $duration .1s;
+  -o-transition: top 0s $duration, left 0s $duration, opacity $duration .1s, -o-transform $duration .1s;
+  transition: top 0s $duration, left 0s $duration, opacity $duration .1s, transform $duration .1s;
 
   &.active {
     opacity: .6;
     @include transform(scale(1));
 
-    -webkit-transition: top 0s 0s, left 0s 0s, opacity $duration, -webkit-transform $duration;
-    -moz-transition: top 0s 0s, left 0s 0s, opacity $duration, -moz-transform $duration;
-    -ms-transition: top 0s 0s, left 0s 0s, opacity $duration, -ms-transform $duration;
-    -o-transition: top 0s 0s, left 0s 0s, opacity $duration, -o-transform $duration;
-    transition: top 0s 0s, left 0s 0s,opacity $duration,  transform $duration;
+    -webkit-transition: top 0s 0s, left 0s 0s, opacity $duration .0s, -webkit-transform $duration .0s;
+    -moz-transition: top 0s 0s, left 0s 0s, opacity $duration .0s, -moz-transform $duration .0s;
+    -ms-transition: top 0s 0s, left 0s 0s, opacity $duration .0s, -ms-transform $duration .0s;
+    -o-transition: top 0s 0s, left 0s 0s, opacity $duration .0s, -o-transform $duration .0s;
+    transition: top 0s 0s, left 0s 0s,opacity $duration .0s,  transform $duration .0s;
 
     .-item-activated- & {
       opacity: 1;

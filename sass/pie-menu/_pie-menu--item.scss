@@ -4,6 +4,18 @@
     Pie menu item
    ------------------------------------------------- */
 
+.pie-menu--items {
+  position: absolute;
+
+  @include transform(scale(.3));
+  @include transition(transform $duration .0s);
+
+  &.active {
+    @include transform(scale(1));
+    @include transition(transform $duration .1s);
+  }
+}
+
 .pie-menu--item {
   position: absolute;
   color: #333;
@@ -17,26 +29,20 @@
   background: rgba(0, 0, 0, 0.10);
   white-space: nowrap;
 
-  @include transform(scale(.6));
+  @include transform(scale(.1));
 
-  transition: transform $duration, opacity $duration, left 0s $duration, right 0s $duration;
-
-  @for $i from 1 through 8 {
-    &:nth-child(#{$i}n) {
-      @include transition-delay(20ms * $i);
-    }
-  }
+  transition: transform $duration, opacity $duration;
 
   .active & {
     opacity: .7;
 
-    transition: transform $duration, opacity $duration, left 0s 0s, right 0s 0s;
+    transition: transform $duration, opacity $duration;
 
     @include transform(scale(1));
 
     @for $i from 1 through 8 {
       &:nth-child(#{$i}n) {
-        @include transition-delay(20ms * $i);
+        @include transition-delay(40ms * $i);
       }
     }
 

@@ -45,9 +45,9 @@ body, html {
 .pie-menu-container {
   left: -9999px;
   position: absolute;
-  -webkit-transition: left 0s 300ms;
-  -moz-transition: left 0s 300ms;
-  transition: left 0s 300ms; }
+  -webkit-transition: left 0s 350ms;
+  -moz-transition: left 0s 350ms;
+  transition: left 0s 350ms; }
   .pie-menu-container.active {
     left: 0;
     -webkit-transition-delay: 0s;
@@ -65,16 +65,16 @@ body, html {
   border-radius: 50%;
   border: 1px gold solid;
   position: absolute;
-  -webkit-transform: scale(.7);
-  -moz-transform: scale(.7);
-  -ms-transform: scale(.7);
-  -o-transform: scale(.7);
-  transform: scale(.7);
-  -webkit-transition: top 0s 300ms, left 0s 300ms, opacity 300ms, -webkit-transform 300ms;
-  -moz-transition: top 0s 300ms, left 0s 300ms, opacity 300ms, -moz-transform 300ms;
-  -ms-transition: top 0s 300ms, left 0s 300ms, opacity 300ms, -ms-transform 300ms;
-  -o-transition: top 0s 300ms, left 0s 300ms, opacity 300ms, -o-transform 300ms;
-  transition: top 0s 300ms, left 0s 300ms, opacity 300ms, transform 300ms; }
+  -webkit-transform: scale(.1);
+  -moz-transform: scale(.1);
+  -ms-transform: scale(.1);
+  -o-transform: scale(.1);
+  transform: scale(.1);
+  -webkit-transition: top 0s 350ms, left 0s 350ms, opacity 350ms .1s, -webkit-transform 350ms .1s;
+  -moz-transition: top 0s 350ms, left 0s 350ms, opacity 350ms .1s, -moz-transform 350ms .1s;
+  -ms-transition: top 0s 350ms, left 0s 350ms, opacity 350ms .1s, -ms-transform 350ms .1s;
+  -o-transition: top 0s 350ms, left 0s 350ms, opacity 350ms .1s, -o-transform 350ms .1s;
+  transition: top 0s 350ms, left 0s 350ms, opacity 350ms .1s, transform 350ms .1s; }
   .pie-menu--ring.active {
     opacity: .6;
     -webkit-transform: scale(1);
@@ -82,11 +82,11 @@ body, html {
     -ms-transform: scale(1);
     -o-transform: scale(1);
     transform: scale(1);
-    -webkit-transition: top 0s 0s, left 0s 0s, opacity 300ms, -webkit-transform 300ms;
-    -moz-transition: top 0s 0s, left 0s 0s, opacity 300ms, -moz-transform 300ms;
-    -ms-transition: top 0s 0s, left 0s 0s, opacity 300ms, -ms-transform 300ms;
-    -o-transition: top 0s 0s, left 0s 0s, opacity 300ms, -o-transform 300ms;
-    transition: top 0s 0s, left 0s 0s, opacity 300ms, transform 300ms; }
+    -webkit-transition: top 0s 0s, left 0s 0s, opacity 350ms 0s, -webkit-transform 350ms 0s;
+    -moz-transition: top 0s 0s, left 0s 0s, opacity 350ms 0s, -moz-transform 350ms 0s;
+    -ms-transition: top 0s 0s, left 0s 0s, opacity 350ms 0s, -ms-transform 350ms 0s;
+    -o-transition: top 0s 0s, left 0s 0s, opacity 350ms 0s, -o-transform 350ms 0s;
+    transition: top 0s 0s, left 0s 0s, opacity 350ms 0s, transform 350ms 0s; }
     .-item-activated- .pie-menu--ring.active {
       opacity: 1; }
 
@@ -133,23 +133,49 @@ body, html {
   -ms-transform: scale(.4);
   -o-transform: scale(.4);
   transform: scale(.4);
-  -webkit-transition: -webkit-transform 300ms, opacity 300ms;
-  -moz-transition: -moz-transform 300ms, opacity 300ms;
-  transition: transform 300ms, opacity 300ms; }
+  -webkit-transition: -webkit-transform 350ms 0s, opacity 350ms 0s;
+  -moz-transition: -moz-transform 350ms 0s, opacity 350ms 0s;
+  transition: transform 350ms 0s, opacity 350ms 0s; }
   .pie-menu--cursor.active {
     opacity: .6;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
     -ms-transform: scale(1);
     -o-transform: scale(1);
-    transform: scale(1); }
+    transform: scale(1);
+    -webkit-transition: -webkit-transform 350ms 0.1s, opacity 350ms .1s;
+    -moz-transition: -moz-transform 350ms 0.1s, opacity 350ms .1s;
+    transition: transform 350ms 0.1s, opacity 350ms .1s; }
 
 .active.-item-activated- .pie-menu--cursor {
-  opacity: 1; }
+  opacity: 1;
+  -webkit-transition: -webkit-transform 350ms 0s, opacity 350ms 0s;
+  -moz-transition: -moz-transform 350ms 0s, opacity 350ms 0s;
+  transition: transform 350ms 0s, opacity 350ms 0s; }
 
 /* -------------------------------------------------
     Pie menu item
    ------------------------------------------------- */
+.pie-menu--items {
+  position: absolute;
+  -webkit-transform: scale(.3);
+  -moz-transform: scale(.3);
+  -ms-transform: scale(.3);
+  -o-transform: scale(.3);
+  transform: scale(.3);
+  -webkit-transition: -webkit-transform 350ms 0s;
+  -moz-transition: -moz-transform 350ms 0s;
+  transition: transform 350ms 0s; }
+  .pie-menu--items.active {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: -webkit-transform 350ms 0.1s;
+    -moz-transition: -moz-transform 350ms 0.1s;
+    transition: transform 350ms 0.1s; }
+
 .pie-menu--item {
   position: absolute;
   color: #333;
@@ -161,84 +187,52 @@ body, html {
   padding: 4px 8px;
   background: rgba(0, 0, 0, 0.1);
   white-space: nowrap;
-  -webkit-transform: scale(.6);
-  -moz-transform: scale(.6);
-  -ms-transform: scale(.6);
-  -o-transform: scale(.6);
-  transform: scale(.6);
-  transition: transform 300ms, opacity 300ms, left 0s 300ms, right 0s 300ms; }
-  .pie-menu--item:nth-child(1n) {
-    -webkit-transition-delay: 20ms;
-    -moz-transition-delay: 20ms;
-    transition-delay: 20ms; }
-  .pie-menu--item:nth-child(2n) {
-    -webkit-transition-delay: 40ms;
-    -moz-transition-delay: 40ms;
-    transition-delay: 40ms; }
-  .pie-menu--item:nth-child(3n) {
-    -webkit-transition-delay: 60ms;
-    -moz-transition-delay: 60ms;
-    transition-delay: 60ms; }
-  .pie-menu--item:nth-child(4n) {
-    -webkit-transition-delay: 80ms;
-    -moz-transition-delay: 80ms;
-    transition-delay: 80ms; }
-  .pie-menu--item:nth-child(5n) {
-    -webkit-transition-delay: 100ms;
-    -moz-transition-delay: 100ms;
-    transition-delay: 100ms; }
-  .pie-menu--item:nth-child(6n) {
-    -webkit-transition-delay: 120ms;
-    -moz-transition-delay: 120ms;
-    transition-delay: 120ms; }
-  .pie-menu--item:nth-child(7n) {
-    -webkit-transition-delay: 140ms;
-    -moz-transition-delay: 140ms;
-    transition-delay: 140ms; }
-  .pie-menu--item:nth-child(8n) {
-    -webkit-transition-delay: 160ms;
-    -moz-transition-delay: 160ms;
-    transition-delay: 160ms; }
+  -webkit-transform: scale(.1);
+  -moz-transform: scale(.1);
+  -ms-transform: scale(.1);
+  -o-transform: scale(.1);
+  transform: scale(.1);
+  transition: transform 350ms, opacity 350ms; }
   .active .pie-menu--item {
     opacity: .7;
-    transition: transform 300ms, opacity 300ms, left 0s 0s, right 0s 0s;
+    transition: transform 350ms, opacity 350ms;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
     -ms-transform: scale(1);
     -o-transform: scale(1);
     transform: scale(1); }
     .active .pie-menu--item:nth-child(1n) {
-      -webkit-transition-delay: 20ms;
-      -moz-transition-delay: 20ms;
-      transition-delay: 20ms; }
-    .active .pie-menu--item:nth-child(2n) {
       -webkit-transition-delay: 40ms;
       -moz-transition-delay: 40ms;
       transition-delay: 40ms; }
-    .active .pie-menu--item:nth-child(3n) {
-      -webkit-transition-delay: 60ms;
-      -moz-transition-delay: 60ms;
-      transition-delay: 60ms; }
-    .active .pie-menu--item:nth-child(4n) {
+    .active .pie-menu--item:nth-child(2n) {
       -webkit-transition-delay: 80ms;
       -moz-transition-delay: 80ms;
       transition-delay: 80ms; }
-    .active .pie-menu--item:nth-child(5n) {
-      -webkit-transition-delay: 100ms;
-      -moz-transition-delay: 100ms;
-      transition-delay: 100ms; }
-    .active .pie-menu--item:nth-child(6n) {
+    .active .pie-menu--item:nth-child(3n) {
       -webkit-transition-delay: 120ms;
       -moz-transition-delay: 120ms;
       transition-delay: 120ms; }
-    .active .pie-menu--item:nth-child(7n) {
-      -webkit-transition-delay: 140ms;
-      -moz-transition-delay: 140ms;
-      transition-delay: 140ms; }
-    .active .pie-menu--item:nth-child(8n) {
+    .active .pie-menu--item:nth-child(4n) {
       -webkit-transition-delay: 160ms;
       -moz-transition-delay: 160ms;
       transition-delay: 160ms; }
+    .active .pie-menu--item:nth-child(5n) {
+      -webkit-transition-delay: 200ms;
+      -moz-transition-delay: 200ms;
+      transition-delay: 200ms; }
+    .active .pie-menu--item:nth-child(6n) {
+      -webkit-transition-delay: 240ms;
+      -moz-transition-delay: 240ms;
+      transition-delay: 240ms; }
+    .active .pie-menu--item:nth-child(7n) {
+      -webkit-transition-delay: 280ms;
+      -moz-transition-delay: 280ms;
+      transition-delay: 280ms; }
+    .active .pie-menu--item:nth-child(8n) {
+      -webkit-transition-delay: 320ms;
+      -moz-transition-delay: 320ms;
+      transition-delay: 320ms; }
     .-pie-menu-moving- .active .pie-menu--item {
       -webkit-transition-delay: 0s;
       -moz-transition-delay: 0s;

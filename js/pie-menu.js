@@ -74,17 +74,19 @@
 
             this.disable(); // Disable previous active item if exist
 
+            this.$itemsConteiner.style.left = this.currentX - this.opts.size/2 + 'px';
+            this.$itemsConteiner.style.top = this.currentY - this.opts.size/2 + 'px';
+
+            this.setMenuItemsPosition();
             $el.classList.add('active');
             $ring.classList.add('active');
             $cursor.classList.add('active');
             this.$itemsConteiner.classList.add('active');
             $html.classList.add('-pie-menu-visible-');
 
-            this.setMenuItemsPosition();
-
 
             this.setCursorPosition();
-            this.setRingRotation(this.getVector(this.cache[0].x, this.cache[0].y));
+            this.setRingRotation(this.getVector(this.cache[0].x, this.cache[0].y, true));
 
             this.setPiePosition();
         },
@@ -94,8 +96,6 @@
          */
         hide: function () {
             this.visible = false;
-
-            this._setSequencedItemPosition();
 
             $el.classList.remove('active');
             $ring.classList.remove('active');
@@ -114,6 +114,76 @@
             this.cacheInited = false;
         },
 
+        animateItems: function (direction) {
+            var targetX = 'correctedX',
+                targetY = 'correctedY',
+                _this = this;
+
+            if (direction == 'in') {
+                targetX = 'fromX';
+                targetY = 'fromY';
+            }
+
+
+            var item = this.cache[0];
+            this.cache.forEach(function (item, i) {
+                setTimeout(function () {
+                    _this.animate(item.item, {
+                        left: item[targetX],
+                        top: item[targetY],
+                        opacity:.7
+                    }, 150)
+                }, i * 20)
+            });
+        },
+
+        animate: function (el, props, duration) {
+            var start = new Date,
+                cursor = 0,
+                order = [],
+                originals = {},
+                difference = {},
+                style = getComputedStyle(el),
+                progress;
+
+            duration = duration || this.opts.transitionDuration;
+
+            function render (params) {
+                progress = ((new Date - start) / duration).toFixed(3);
+
+                if (progress == 0) {
+                    originals = {};
+                    difference = {};
+                    for (var prop in params) {
+                        originals[prop] = parseInt(style[prop]);
+                        difference[prop] = params[prop] - originals[prop];
+                    }
+                }
+
+                if (progress > 1) {
+                    progress = 1;
+                }
+
+                var delta = progress,
+                    nextValue;
+
+                for (var prop in params) {
+                    nextValue = originals[prop] + (difference[prop] * delta);
+                    el.style[prop] =  nextValue + (prop == 'opacity' ? '' : 'px');
+                }
+
+                if ( progress == 1) {
+                    return;
+                }
+
+                setTimeout(function () {
+                    render(params)
+                },1000/60)
+            }
+
+            render(props)
+        },
+
         /**
          * Activates received item.
          * @param {Object} item - Cached menu item from this.cache
@@ -125,7 +195,7 @@
                 this.disable(this.currentActive);
             }
 
-            var vector = this.getVector(item.x, item.y);
+            var vector = this.getVector(item.x, item.y, true);
 
             this.setPointerPosition(vector);
             item.item.classList.add('active');
@@ -173,7 +243,7 @@
          * Loops through each menu item and sets its position.
          * Refreshes items cache array.
          */
-        setMenuItemsPosition: function () {
+        setMenuItemsPosition: function (pos) {
             var step = Math.PI*2 / this.opts.items.length,
                 angle = Math.PI/2,
                 opts = this.opts,
@@ -182,15 +252,23 @@
                 position;
 
 
+
             Array.prototype.forEach.call(this.$items, function ($item, i) {
                 position = _this.getItemPosition($item, angle);
 
-                $item.style.left = position.x + 'px';
-                $item.style.top = position.y + 'px';
+                if (!pos) {
+                    $item.style.left = position.x + 'px';
+                    $item.style.top = position.y + 'px';
+                } else {
+                    $item.style.left = position.fromX + 'px';
+                    $item.style.top = position.fromY + 'px';
+                }
 
                 if (!_this.cacheInited) {
                     _this.cache.push({
                         item: $item,
+                        correctedX: position.x,
+                        correctedY: position.y,
                         x: position.originalX,
                         y: position.originalY,
                         fromX: position.fromX,
@@ -218,11 +296,11 @@
         },
 
         getX: function (angle, size) {
-            return Math.cos(angle) * (size || this.opts.size + this.opts.pointerSize)/2 + this.centerX;
+            return Math.cos(angle) * (size || this.opts.size + this.opts.pointerSize)/2 + this.opts.size/2
         },
 
         getY: function (angle, size) {
-            return -Math.sin(angle) * (size || this.opts.size + this.opts.pointerSize)/2 + this.centerY;
+            return -Math.sin(angle) * (size || this.opts.size + this.opts.pointerSize)/2 + this.opts.size/2
         },
 
         /**
@@ -309,9 +387,9 @@
             toX = this.getX(to);
             toY = this.getY(to);
 
-            range[0] = -Math.atan2(-(fromY - this.centerY), -(fromX - this.centerX)) * 180/Math.PI + 180;
+            range[0] = -Math.atan2(-(fromY - this.opts.size/2), -(fromX - this.opts.size/2)) * 180/Math.PI + 180;
 
-            range[1] = -Math.atan2(-(toY - this.centerY), -(toX - this.centerX)) * 180/Math.PI + 180;
+            range[1] = -Math.atan2(-(toY - this.opts.size/2), -(toX - this.opts.size/2)) * 180/Math.PI + 180;
 
             return range;
         },
@@ -361,6 +439,8 @@
 
             $itemsContainer.classList.add('pie-menu--items');
             $itemsContainer.setAttribute('id', idPrefix + idCounter++);
+            $itemsContainer.style.width = this.opts.size + 'px';
+            $itemsContainer.style.height = this.opts.size + 'px';
 
             this.opts.items.forEach(function (item) {
                 if (typeof item == 'string') {
@@ -388,10 +468,17 @@
             this.vector = this.getVector(this.currentX, this.currentY);
         },
 
-        getVector: function (x, y) {
+        getVector: function (x, y, isItem) {
             var _x = x - this.centerX,
-                _y = y - this.centerY,
-                length = Math.sqrt(_x * _x + _y * _y);
+                _y = y - this.centerY;
+
+            if (isItem) {
+                _x = x - this.opts.size/2;
+                _y = y - this.opts.size/2;
+            }
+
+
+            var length = Math.sqrt(_x * _x + _y * _y);
 
             return {
                 x: _x,
