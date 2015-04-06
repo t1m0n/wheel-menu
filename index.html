@@ -2,38 +2,18 @@
 <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Pie menu</title>
+        <title>Wheel chat</title>
         <link rel="stylesheet" href="style/style.css"/>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <div class="container">
-            <img src="img/dota-bg.jpg" alt=""/>
-        </div>
-
+        <h1 class="header">
+            Press left mouse button to show wheel chat
+        </h1>
         <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="js/pie-menu.js"></script>
-        <script type="text/javascript">
-            window.onload = function () {
-                new PieMenu('html', {
-                    size: 170,
-                    pointerOffset: 8,
-                    borderWidth: 11,
-                    pointerSize: 80,
-                    items: [
-                        'Push',
-                        'Well played',
-                        'Missing',
-                        'Care',
-                        'Get Back',
-                        'Need Wards',
-                        'Stun',
-                        'Help'
-                    ],
-                    onChange: function (item) {
-                        console.log(item);
-                    }
-                });
-            }
-        </script>
+        <script type="text/javascript" src="js/chat.js"></script>
+        <script type="text/javascript" src="js/init.js"></script>
     </body>
 </html>

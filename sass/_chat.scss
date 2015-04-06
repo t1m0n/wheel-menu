@@ -1,0 +1,72 @@
+@import "bourbon/bourbon";
+
+/* -------------------------------------------------
+    Chat
+   ------------------------------------------------- */
+
+.chat {
+  position: fixed;
+  bottom: 100px;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+
+.chat--messages {
+  display: inline-block;
+  text-align: left;
+  width: 370px;
+}
+
+//  Message
+// -------------------------------------------------
+
+.chat-msg {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 1px 1px #000;
+  font-size: 16px;
+  opacity: 0;
+
+  @include transition(all .5s);
+  
+  * {
+    display: inline-block;
+  }
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.chat-msg--image {
+  margin-right: 15px;
+  width: 52px;
+  vertical-align: middle;
+
+}
+
+.chat-msg--name {
+  color: #eb67a1;
+}
+
+.chat-msg--to-whom {
+  margin-right: 6px;
+}
+
+.chat-msg--text {
+  padding-left: 28px;
+  position: relative;
+
+  &:before {
+    content: '';
+    background: url(../img/chat-pointer.png) center no-repeat;
+    position: absolute;
+    left: 7px;
+    top: 2px;
+    width: 18px;
+    height: 21px;
+    opacity: .8;
+  }
+}

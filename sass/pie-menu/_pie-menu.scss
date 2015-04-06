@@ -14,14 +14,15 @@
 }
 
 .pie-menu-container {
-    left: -9999px;
-    position: absolute;
+  left: -9999px;
+  top: 0;
+  position: absolute;
 
-    @include transition(left 0s $duration);
+  @include transition(left 0s $duration);
 
-    &.active {
-      left: 0;
+  &.active {
+    left: 0;
 
-      @include transition-delay(0s)
-    }
+    @include transition-delay(0s)
+  }
 }

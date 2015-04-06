@@ -164,7 +164,7 @@
         setPiePosition: function () {
             var x = this.centerX - this.opts.size / 2,
                 y = this.centerY - this.opts.size / 2;
-
+console.log(y);
             $ring.style.top = y + 'px';
             $ring.style.left = x + 'px';
         },
@@ -521,6 +521,8 @@
         },
 
         onMouseUp: function (e) {
+            if (!this.visible) return;
+
             if (this.currentActive && this.opts.onChange) {
                 var index = this.cache.indexOf(this.currentActive);
                 this.opts.onChange(this.opts.items[index]);
