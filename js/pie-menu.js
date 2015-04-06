@@ -321,8 +321,8 @@
          * @param {Event} e - Mousedown event
          */
         defineCoordsCenter: function (e) {
-            this.centerX = e.clientX;
-            this.centerY = e.clientY;
+            this.centerX = e.pageX;
+            this.centerY = e.pageY;
         },
 
         /**
@@ -380,8 +380,8 @@
         },
 
         saveCurrentMousePosition: function (event) {
-            this.currentX = event.clientX;
-            this.currentY = event.clientY;
+            this.currentX = event.pageX;
+            this.currentY = event.pageY;
         },
 
         defineVector: function () {
