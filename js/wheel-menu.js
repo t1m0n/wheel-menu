@@ -14,12 +14,14 @@
     // Default params
         defaults = {
             size: 100,
+            classes: '',
             borderWidth: 20, // Need for correct cursor positioning inside the ring
             inActiveRadius: 20,
             pointerOffset: 10,
             pointerFixed: true,
             pointerSize: 50,
             rotateRing: true, // If ring must be rotated according to active item or not
+            transitionDuration: 400,
 
             // On change callback. Called when mouseup event is triggered,
             // and if active item exists. It receives item array element as parameter.
@@ -56,6 +58,7 @@
             this.cache = [];
             this.cacheInited = false;
             this.currentActive = '';
+            this.removeClassTimeout = '';
 
             this.createItemsDOM();
             this._saveCursorDimensions();
@@ -70,6 +73,15 @@
          */
         show: function () {
             this.visible = true;
+
+            if (this.removeClassTimeout) {
+                clearTimeout(this.removeClassTimeout);
+            }
+
+            if (this.opts.classes) {
+                $el.classList.add(this.opts.classes);
+                this._saveCursorDimensions();
+            }
 
             this.disable(); // Disable previous active item if exist
 
@@ -94,6 +106,8 @@
          * Hide menu
          */
         hide: function () {
+            var _this = this;
+
             this.visible = false;
 
             $el.classList.remove('active');
@@ -103,6 +117,12 @@
             this.$itemsConteiner.classList.remove('active');
             $html.classList.remove('-wheel-menu-visible-','-wheel-menu-moving-');
 
+            if (this.opts.classes) {
+                this.removeClassTimeout = setTimeout(function () {
+                    $el.classList.remove(_this.opts.classes);
+                }, this.opts.transitionDuration)
+            }
+
             $ring.style.transform = '';
 
             $ring.style.top = 0 + 'px';
@@ -111,76 +131,6 @@
             // Reset item cache
             this.cache = [];
             this.cacheInited = false;
-        },
-
-        animateItems: function (direction) {
-            var targetX = 'correctedX',
-                targetY = 'correctedY',
-                _this = this;
-
-            if (direction == 'in') {
-                targetX = 'fromX';
-                targetY = 'fromY';
-            }
-
-
-            var item = this.cache[0];
-            this.cache.forEach(function (item, i) {
-                setTimeout(function () {
-                    _this.animate(item.item, {
-                        left: item[targetX],
-                        top: item[targetY],
-                        opacity:.7
-                    }, 150)
-                }, i * 20)
-            });
-        },
-
-        animate: function (el, props, duration) {
-            var start = new Date,
-                cursor = 0,
-                order = [],
-                originals = {},
-                difference = {},
-                style = getComputedStyle(el),
-                progress;
-
-            duration = duration || this.opts.transitionDuration;
-
-            function render (params) {
-                progress = ((new Date - start) / duration).toFixed(3);
-
-                if (progress == 0) {
-                    originals = {};
-                    difference = {};
-                    for (var prop in params) {
-                        originals[prop] = parseInt(style[prop]);
-                        difference[prop] = params[prop] - originals[prop];
-                    }
-                }
-
-                if (progress > 1) {
-                    progress = 1;
-                }
-
-                var delta = progress,
-                    nextValue;
-
-                for (var prop in params) {
-                    nextValue = originals[prop] + (difference[prop] * delta);
-                    el.style[prop] =  nextValue + (prop == 'opacity' ? '' : 'px');
-                }
-
-                if ( progress == 1) {
-                    return;
-                }
-
-                setTimeout(function () {
-                    render(params)
-                },1000/60)
-            }
-
-            render(props)
         },
 
         /**
@@ -233,7 +183,7 @@
         setPiePosition: function () {
             var x = this.centerX - this.opts.size / 2,
                 y = this.centerY - this.opts.size / 2;
-console.log(y);
+
             $ring.style.top = y + 'px';
             $ring.style.left = x + 'px';
         },

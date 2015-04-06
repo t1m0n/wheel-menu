@@ -4,6 +4,9 @@
 
 $duration: 300ms;
 
+.-dota- {
+
+
 //  Ring
 // -------------------------------------------------
 
@@ -63,7 +66,7 @@ $duration: 300ms;
 
 }
 
-.-wheel-menu-moving- {
+.-wheel-menu-moving- & {
   .wheel-menu--item {
     &.active {
       opacity: 1;
@@ -72,3 +75,6 @@ $duration: 300ms;
     }
   }
 }
+
+}
+

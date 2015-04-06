@@ -14,6 +14,8 @@
     @include transform(scale(1));
     @include transition(transform $duration .1s);
   }
+
+  z-index: 100;
 }
 
 .wheel-menu--item {
@@ -30,12 +32,12 @@
 
   @include transform(scale(.1));
 
-  transition: transform $duration, opacity $duration;
+  @include transition(transform $duration, opacity $duration);
 
   .active & {
     opacity: .7;
 
-    transition: transform $duration, opacity $duration;
+    @include transition(transform $duration, opacity $duration);
 
     @include transform(scale(1));
 

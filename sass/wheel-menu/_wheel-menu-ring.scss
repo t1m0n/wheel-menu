@@ -17,21 +17,13 @@ $radius: 100px;
 
   @include transform(scale(.1));
 
-  -webkit-transition: top 0s $duration, left 0s $duration, opacity $duration .1s, -webkit-transform $duration .1s;
-  -moz-transition: top 0s $duration, left 0s $duration, opacity $duration .1s, -moz-transform $duration .1s;
-  -ms-transition: top 0s $duration, left 0s $duration, opacity $duration .1s, -ms-transform $duration .1s;
-  -o-transition: top 0s $duration, left 0s $duration, opacity $duration .1s, -o-transform $duration .1s;
-  transition: top 0s $duration, left 0s $duration, opacity $duration .1s, transform $duration .1s;
+  @include transition(top 0s $duration, left 0s $duration, opacity $duration .15s, transform $duration .15s);
 
   &.active {
     opacity: .6;
     @include transform(scale(1));
 
-    -webkit-transition: top 0s 0s, left 0s 0s, opacity $duration .0s, -webkit-transform $duration .0s;
-    -moz-transition: top 0s 0s, left 0s 0s, opacity $duration .0s, -moz-transform $duration .0s;
-    -ms-transition: top 0s 0s, left 0s 0s, opacity $duration .0s, -ms-transform $duration .0s;
-    -o-transition: top 0s 0s, left 0s 0s, opacity $duration .0s, -o-transform $duration .0s;
-    transition: top 0s 0s, left 0s 0s,opacity $duration .0s,  transform $duration .0s;
+    @include transition(top 0s 0s, left 0s 0s,opacity $duration .0s,  transform $duration .0s);
 
     .-item-activated- & {
       opacity: 1;
@@ -43,6 +35,5 @@ $radius: 100px;
 .-wheel-menu-moving- {
   .wheel-menu--ring  {
     @include transition(opacity .3s);
-
   }
 }

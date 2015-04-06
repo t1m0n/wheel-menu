@@ -3,6 +3,7 @@ window.onload = function () {
 
     new WheelMenu('html', {
         size: 170,
+        classes: '-dota-',
         pointerOffset: 8,
         borderWidth: 11,
         pointerSize: 80,
