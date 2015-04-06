@@ -14,14 +14,16 @@
 
   opacity: 0;
   @include transform(scale(.4));
-  @include transition(transform $duration, opacity $duration);
+  @include transition(transform $duration 0s, opacity $duration 0s);
 
   &.active {
     opacity: .6;
     @include transform(scale(1));
+    @include transition(transform $duration .1s, opacity $duration .1s);
   }
 }
 
 .active.-item-activated- .pie-menu--cursor {
   opacity: 1;
+  @include transition(transform $duration 0s, opacity $duration 0s);
 }
