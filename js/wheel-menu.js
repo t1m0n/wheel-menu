@@ -550,6 +550,8 @@
         onMouseDown: function (e) {
             e.preventDefault();
 
+            if (e.which !== 1) return;
+
             this.defineCoordsCenter(e);
             this.saveCurrentMousePosition(e);
             this.defineVector();
@@ -570,7 +572,6 @@
         onMouseMove: function (e) {
             if (this.visible) {
                 e.preventDefault();
-                $html.classList.add('-wheel-menu-moving-');
 
                 this.saveCurrentMousePosition(e);
                 this.defineVector();
@@ -582,6 +583,7 @@
                 if (this._isInactive()) {
                     this.disable();
                 } else {
+                    $html.classList.add('-wheel-menu-moving-');
                     this.intersection();
                 }
             }

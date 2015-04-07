@@ -23,7 +23,7 @@ $radius: 100px;
     opacity: .6;
     @include transform(scale(1));
 
-    @include transition(top 0s 0s, left 0s 0s,opacity $duration .0s,  transform $duration .0s);
+    @include transition(top 0s 0s, left 0s 0s, opacity $duration 0s, transform $duration 0s);
 
     .-item-activated- & {
       opacity: 1;
