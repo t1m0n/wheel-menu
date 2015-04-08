@@ -6,6 +6,7 @@
         DOMGenerated = false,
         idCounter = 1,
         idPrefix = 'wheel-menu-',
+        transformProp = '',
         $el,
         $ring,
         $cursor,
@@ -37,6 +38,17 @@
             ]
         };
 
+    function getTransform () {
+        var styles = getComputedStyle(document.documentElement),
+            names = ['transform', 'msTransform', 'mozTransform', 'webkitTransform'];
+
+        names.forEach(function (name) {
+            if (transformProp) return;
+            if (name in styles) transformProp = name;
+        })
+    }
+
+    getTransform();
 
     window.WheelMenu = function (el, params) {
         this.inited = false;
@@ -230,18 +242,6 @@
             });
 
             this.cacheInited = true;
-        },
-
-        /**
-         * Sets items position in certain sequence. If direction is true,
-         * when sets items position from circle center to its edges and vice versa.
-         * @param {Boolean} [direction] - If true (show) sets smaller values first.
-         * @private
-         */
-        _setSequencedItemPosition: function (direction) {
-            if (direction) {
-
-            }
         },
 
         getX: function (angle, size) {
@@ -454,13 +454,13 @@
             var width = $pointer.offsetWidth,
                 height = $pointer.offsetHeight;
 
-            var x = vector.x / vector.length * (this.opts.size/2+this.opts.pointerOffset) + this.centerX - width/2,
-                y = vector.y / vector.length * (this.opts.size/2+this.opts.pointerOffset) + this.centerY - height/2,
+            var x = vector.x / vector.length * (this.opts.size/2 + this.opts.pointerOffset) + this.centerX - width/2,
+                y = vector.y / vector.length * (this.opts.size/2 + this.opts.pointerOffset) + this.centerY - height/2,
                 angle = this.getCursorAngle(vector);
 
             $pointer.style.left = x + 'px';
             $pointer.style.top = y + 'px';
-            $pointer.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)'
+            $pointer.style[transformProp] = 'rotate(' + -angle.toFixed(1) + 'deg)'
         },
 
         setCursorPosition: function () {
@@ -488,8 +488,7 @@
             vector = vector || this.getVector(active.x, active.y);
             angle = this.getCursorAngle(vector);
 
-            $ring.style.transform = 'rotate(' + -angle.toFixed(1) + 'deg)';
-            $ring.style.transformOrigin = 'center center';
+            $ring.style[transformProp] = 'rotate(' + -angle.toFixed(1) + 'deg)';
         },
 
         /**
